@@ -366,6 +366,34 @@
         .dice-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
         .dice-buttons button { background: #222; border: 1px solid #555; color: #fff; padding: 10px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: 'Rajdhani', sans-serif; font-size: 16px;}
         .dice-buttons button:hover { background: var(--accent-dark); border-color: var(--accent-color); transform: scale(1.05); box-shadow: 0 0 10px rgba(209,17,17,0.5); }
+        
+        /* Estilos do Modal de Config e Modo Mobile */
+        .modal-config { background: var(--sheet-bg); border: 2px solid var(--accent-color); padding: 30px; border-radius: 8px; width: 350px; text-align: center; box-shadow: 0 0 20px rgba(209,17,17,0.5); font-family: 'Rajdhani', sans-serif; display: flex; flex-direction: column; gap: 15px; }
+        .modal-config h2 { margin-top: 0; color: var(--accent-color); border: none; background: transparent; padding: 0; }
+        
+        /* O "WhatsApp" da vida - Modo Celular Focado */
+        body.mobile-mode { padding: 0; background: #000; overflow-x: hidden; }
+        body.mobile-mode .ficha-a4 { width: 100vw; min-height: auto; transform: none !important; margin: 0; grid-template-columns: 1fr; border: none; border-radius: 0; padding: 15px; box-shadow: none; display: flex; flex-direction: column; }
+        body.mobile-mode .painel-controles { position: sticky; top: 0; border-radius: 0; border-left: none; border-right: none; border-top: none; background: rgba(17, 17, 17, 0.98); margin-bottom: 15px; z-index: 900; }
+        body.mobile-mode .header { flex-direction: column; align-items: center; text-align: center; gap: 15px; }
+        body.mobile-mode .header-title h1 { font-size: 32px; }
+        
+        /* Botão do chat vira um botão flutuante redondo estilo app */
+        body.mobile-mode .btn-abrir-chat { top: auto; bottom: 20px; transform: none; right: 20px; border-radius: 50px; border: 2px solid var(--accent-color); padding: 15px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.8); background: #111; z-index: 999; }
+        
+        /* Painel do chat ocupa a tela toda por cima da ficha */
+        body.mobile-mode .painel-multiplayer { width: 100vw; height: 100vh; right: -100vw; padding: 0; background: #0a0a0c; border: none; top: 0; display: flex; flex-direction: column; position: fixed; z-index: 10000; }
+        body.mobile-mode .painel-multiplayer.aberto { right: 0; }
+        body.mobile-mode .header-chat { padding: 15px; background: #1a1a1d; margin: 0; border-bottom: 2px solid var(--accent-color); display: flex; align-items: center; justify-content: space-between; }
+        body.mobile-mode .chat-layout { display: flex; flex-direction: column; height: calc(100vh - 65px); gap: 0; }
+        
+        /* Esconde painéis secundários no celular para focar SÓ nas mensagens */
+        body.mobile-mode .projetos-box { display: none; } 
+        body.mobile-mode .rolagens-box { display: none; } 
+        
+        body.mobile-mode .chat-box { flex: 1; border: none; border-radius: 0; padding: 0; background: transparent; display: flex; flex-direction: column; }
+        body.mobile-mode .mensagens { border: none; border-radius: 0; margin: 0; padding: 15px; flex-grow: 1; background-color: #0a0a0c; }
+        body.mobile-mode .controles-inferiores { border-radius: 0; border-left: none; border-right: none; border-bottom: none; background: #1a1a1d; padding: 10px; margin: 0; }
     </style>
 </head>
 <body>
@@ -381,9 +409,20 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="configModal" style="display: none;">
+        <div class="modal-config">
+            <h2>CONFIGURAÇÕES</h2>
+            <p style="color:#aaa; font-size:14px;">Ajuste a interface para o seu dispositivo.</p>
+            <button class="btn" style="background:#222; border-color:#00fa9a; color:#fff;" onclick="window.setModoInterface('pc')">💻 MODO COMPUTADOR (Padrão)</button>
+            <button class="btn" style="background:#222; border-color:var(--accent-color); color:#fff;" onclick="window.setModoInterface('mobile')">📱 MODO CELULAR (Estilo App)</button>
+            <button class="btn" style="background:transparent; border:none; color:#888; margin-top:10px;" onclick="document.getElementById('configModal').style.display='none'">Fechar</button>
+        </div>
+    </div>
+
     <div id="dice-container" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999;"></div>
 
     <div class="painel-controles esconder-na-foto">
+        <button class="btn" style="background:#111; border-color:#fff;" onclick="document.getElementById('configModal').style.display='flex'">⚙️ Configurar Layout</button>
         <button class="btn primary" onclick="window.salvarFichaOnline()" style="background:#006400; border-color:#00fa9a;">☁️ Salvar no Servidor</button>
         <button class="btn primary" onclick="window.exportarImagem()">📸 Salvar como Foto</button>
         <button class="btn" onclick="window.exportarDados()">💾 Exportar Local</button>
@@ -986,6 +1025,25 @@
 
         if(window.inventarioArmas.length === 0) {
             window.adicionarArma("Pistola 9mm", "1d6", 12, 12);
+        }
+
+        // SISTEMA DE TROCA DE LAYOUT (PC / MOBILE)
+        window.setModoInterface = function(modo) {
+            if (modo === 'mobile') {
+                document.body.classList.add('mobile-mode');
+                // Deixa o botão mais enxuto para a tela do celular
+                document.querySelector('.btn-abrir-chat').innerHTML = '💬 CHAT';
+            } else {
+                document.body.classList.remove('mobile-mode');
+                // Volta ao normal no PC
+                document.querySelector('.btn-abrir-chat').innerHTML = '◀ MESA & TERMINAL';
+            }
+            document.getElementById('configModal').style.display = 'none';
+        }
+
+        // Detecta automaticamente se é celular quando abre o site e já ativa o modo app
+        if (window.innerWidth <= 820) {
+            window.setModoInterface('mobile');
         }
     </script>
 
