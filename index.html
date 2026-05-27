@@ -70,11 +70,18 @@
         #hunger-bar-bg { position: absolute; top: 45px; left: 20px; width: 220px; height: 10px; background: rgba(25,20,5,0.85); border: 2px solid #333; border-radius: 2px; }
         #hunger-bar { width: 100%; height: 100%; background: linear-gradient(90deg, #b5651d, #5f3000); transition: width 0.1s; }
 
-        #clock-display { position: absolute; top: 65px; left: 20px; font-size: 13px; color: #888; font-weight: bold; text-shadow: 1px 1px #000; }
-        #biome-display { position: absolute; top: 85px; left: 20px; font-size: 14px; color: #a3a3a3; font-weight: bold; text-shadow: 1px 1px #000; text-transform: uppercase; letter-spacing: 1px; }
+        #temp-bar-bg { position: absolute; top: 65px; left: 20px; width: 220px; height: 10px; background: rgba(5,20,35,0.85); border: 2px solid #333; border-radius: 2px; }
+        #temp-bar { width: 100%; height: 100%; background: linear-gradient(90deg, #00ffff, #0055aa); transition: width 0.1s; }
+
+        #thirst-bar-bg { position: absolute; top: 85px; left: 20px; width: 220px; height: 10px; background: rgba(5,20,35,0.85); border: 2px solid #333; border-radius: 2px; }
+        #thirst-bar { width: 100%; height: 100%; background: linear-gradient(90deg, #0088ff, #0044aa); transition: width 0.1s; }
+
+        #clock-display { position: absolute; top: 105px; left: 20px; font-size: 13px; color: #888; font-weight: bold; text-shadow: 1px 1px #000; }
+        #biome-display { position: absolute; top: 125px; left: 20px; font-size: 14px; color: #a3a3a3; font-weight: bold; text-shadow: 1px 1px #000; text-transform: uppercase; letter-spacing: 1px; }
+        #season-display { position: absolute; top: 145px; left: 20px; font-size: 14px; color: #a3a3a3; font-weight: bold; text-shadow: 1px 1px #000; text-transform: uppercase; letter-spacing: 1px; }
 
         #btn-inv {
-            position: absolute; top: 75px; right: 20px; width: 55px; height: 55px;
+            position: absolute; top: 125px; right: 20px; width: 55px; height: 55px;
             background: rgba(20,20,20,0.85); border: 2px solid #444; border-radius: 4px;
             color: white; display: flex; justify-content: center; align-items: center;
             font-size: 22px; pointer-events: auto; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -255,6 +262,12 @@
         .css-water { width: 12px; height: 26px; background: rgba(0, 150, 255, 0.5); border: 1px solid rgba(255,255,255,0.4); border-radius: 2px 2px 4px 4px; position: relative; }
         .css-water::before { content: ''; position: absolute; top: -4px; left: 2px; width: 6px; height: 4px; background: #fff; border-radius: 1px; }
         .css-water::after { content: ''; position: absolute; bottom: 2px; left: 2px; width: 6px; height: 14px; background: rgba(255,255,255,0.2); }
+
+        .css-empty-bottle { width: 12px; height: 26px; background: rgba(200, 200, 200, 0.2); border: 1px solid rgba(255,255,255,0.4); border-radius: 2px 2px 4px 4px; position: relative; }
+        .css-empty-bottle::before { content: ''; position: absolute; top: -4px; left: 2px; width: 6px; height: 4px; background: #ccc; border-radius: 1px; }
+
+        .css-well { width: 24px; height: 24px; background: #8a6d5c; border-radius: 4px; position: relative; border-top: 4px solid #555; }
+        .css-well::after { content: ''; position: absolute; top: -14px; left: -2px; border-left: 14px solid transparent; border-right: 14px solid transparent; border-bottom: 12px solid #4a2a11; }
         
         .css-raw-fish { width: 24px; height: 12px; background: #5a8296; border-radius: 50% 50% 50% 50%; position: relative; box-shadow: inset -2px -2px 0px #345669; clip-path: polygon(100% 50%, 80% 0, 20% 0, 0 50%, 20% 100%, 80% 100%); }
         .css-raw-fish::after { content: ''; position: absolute; top: 2px; left: -6px; width: 8px; height: 8px; background: #5a8296; clip-path: polygon(100% 50%, 0 0, 0 100%); }
@@ -364,6 +377,16 @@
         .css-loot-bag { width: 30px; height: 35px; background: #8b5a2b; border-radius: 8px 8px 15px 15px; position: relative; box-shadow: inset -4px -4px 0 #5c3a21; margin-top: 10px;}
         .css-loot-bag::before { content:''; position:absolute; top:-6px; left:6px; width:18px; height:8px; background: #d2b48c; border-radius: 4px; }
         .css-loot-bag::after { content:''; position:absolute; top:8px; left:10px; width:10px; height:12px; background: #3e2312; border-radius: 50%; }
+        
+        .css-reinforced-scrap { width: 20px; height: 20px; background: linear-gradient(135deg, #ffd700, #b8860b); clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%); box-shadow: inset 0 0 5px #8b6508; border: 1px solid #fff;}
+        #fade-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+        
+        #shop-ui { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(15,15,20,0.95); border: 2px solid #ffaa00; padding: 20px; color: white; z-index: 9999; flex-direction: column; width: 350px; border-radius: 8px; box-shadow: 0 0 30px rgba(255,170,0,0.4); pointer-events: auto;}
+        #shop-ui h2 { margin-top: 0; text-align: center; color: #ffaa00; font-family: 'Courier New', monospace; text-shadow: 1px 1px #000; }
+        .shop-item-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; background: rgba(255,255,255,0.05); padding: 5px; border-radius: 4px; }
+        .shop-btn { background: #333; color: #ffaa00; border: 1px solid #ffaa00; padding: 4px 8px; cursor: pointer; font-weight: bold; border-radius: 2px; font-size: 11px;}
+        .shop-btn:hover { background: #ffaa00; color: #000; }
+        #shop-close { margin-top: 15px; background: #550000; border: 1px solid #ff0000; color: #fff; padding: 10px; cursor: pointer; font-weight: bold; text-align: center; border-radius: 4px; }
     </style>
 
 </head>
@@ -447,11 +470,14 @@
         <div id="crosshair"></div>
         <div id="health-bar-bg"><div id="health-bar"></div></div>
         <div id="hunger-bar-bg"><div id="hunger-bar"></div></div>
+        <div id="temp-bar-bg"><div id="temp-bar"></div></div>
+        <div id="thirst-bar-bg"><div id="thirst-bar"></div></div>
         <div id="clock-display">BRT: --:--:--</div>
         <div id="biome-display">Região: Desconhecida</div>
+        <div id="season-display">Dia 1 - Primavera</div>
         <div id="ammo-display">Balas: --</div>
+        <div id="btn-pause" style="position: absolute; top: 60px; right: 20px; width: 55px; height: 55px; background: rgba(20,20,20,0.85); border: 2px solid #444; border-radius: 4px; color: white; display: flex; justify-content: center; align-items: center; font-size: 26px; cursor: pointer; pointer-events: auto; z-index: 9998; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">⚙️</div>
         <div id="btn-inv" style="font-size: 20px; font-weight: bold;">🎒</div>
-        <div id="btn-pause" style="position: absolute; top: 140px; right: 20px; width: 55px; height: 55px; background: rgba(20,20,20,0.85); border: 2px solid #444; border-radius: 4px; color: white; display: flex; justify-content: center; align-items: center; font-size: 26px; cursor: pointer; pointer-events: auto; z-index: 9998; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">⚙️</div>
 
         <div id="pause-menu" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; flex-direction:column; justify-content:center; align-items:center; pointer-events: auto; overflow-y: auto; padding: 20px;">
             <h1 style="color:#fff; font-family:'Courier New', monospace; font-size:40px;">PAUSADO</h1>
@@ -564,6 +590,13 @@
         
         <div id="instructions">WASD: Mover | Mouse: Atirar | Q: Trocar Arma | R: Recarregar | E: Interagir</div>
         
+        <div id="fade-overlay"></div>
+        <div id="shop-ui">
+            <h2 id="shop-title">MERCADOR</h2>
+            <div id="shop-list" style="max-height: 250px; overflow-y: auto;"></div>
+            <div id="shop-close">SAIR DO MERCADO</div>
+        </div>
+        
         <div id="death-screen" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(20,0,0,0.9); z-index:9999; flex-direction:column; justify-content:center; align-items:center; pointer-events: auto;">
             <h1 style="color:#ff0000; font-size:46px; font-family:'Courier New', monospace; font-weight:bold; text-shadow: 2px 2px #000;">VOCÊ MORREU</h1>
             <p style="color:#ccc; font-family:'Courier New'; margin-bottom:20px;">Todos os seus itens foram perdidos na zona de exclusão.</p>
@@ -611,9 +644,14 @@
         
         if (isMultiplayer) {
             // Renasce no mesmo servidor (mantém a sala aberta)
-            player.hp = 100; player.hunger = 100;
-            player.x = 1000 + Math.random() * 20000;
-            player.y = GROUND_Y - player.height;
+            player.hp = 100; player.hunger = 100; player.temperature = 100; player.thirst = 100;
+            document.getElementById("temp-bar").style.width = "100%";
+            document.getElementById("thirst-bar").style.width = "100%";
+            
+            let safezone = houses.find(h => h.isSafezone);
+            if(safezone) transitionToInterior(safezone, 0, null, safezone.x + 100, (GROUND_Y + INTERIOR_OFFSET_Y) - player.height - 10);
+            else { player.x = 12500; player.y = GROUND_Y - player.height; }
+
             player.deadTimer = 0;
             hasDroppedLoot = false;
             
@@ -625,6 +663,8 @@
         } else {
             // Offline: Limpa o save e reinicia o jogo do zero
             localStorage.removeItem("survivalSave_v2");
+            localStorage.removeItem("survival_saved_hunger");
+            localStorage.removeItem("survival_saved_thirst");
             location.reload();
         }
     });
@@ -632,7 +672,11 @@
     document.getElementById("btn-quit-death").addEventListener("click", (e) => {
         if(e) e.preventDefault();
         // Volta para o menu (recarregando a página limpa as conexões P2P corretamente)
-        if (!isMultiplayer) localStorage.removeItem("survivalSave_v2"); // Garante que não volte salvo morto
+        if (!isMultiplayer) {
+            localStorage.removeItem("survivalSave_v2");
+            localStorage.removeItem("survival_saved_hunger");
+            localStorage.removeItem("survival_saved_thirst");
+        }
         location.reload();
     });
     const ctx = canvas.getContext("2d");
@@ -647,6 +691,11 @@
     let ambientClouds = []; for(let i=0; i<25; i++) ambientClouds.push({ x: Math.random()*25000, y: 30 + Math.random()*350, w: 150+Math.random()*250, h: 40+Math.random()*50, speed: 0.1+Math.random()*0.3 });
     let ambientBirds = [];
 
+    let inGameDays = 1;
+    let currentSeasonIdx = 0;
+    const SEASONS = ["Primavera", "Verão", "Outono", "Inverno"];
+    let lastHourChecked = -1;
+
     let inventoryOpen = false;
     
     const WORLD_WIDTH = 25000;
@@ -660,6 +709,17 @@
         const nd = new Date(new Date().toLocaleString("en-US", {timeZone: "America/Sao_Paulo"}));
         brHours = (nd.getHours() + window.fakeTimeOffset) % 24; 
         brMinutes = nd.getMinutes(); brSeconds = nd.getSeconds();
+        
+        // Ciclo de Estações: Vira o dia à meia-noite (00h)
+        if (lastHourChecked !== -1 && brHours === 0 && lastHourChecked === 23) {
+            inGameDays++;
+            currentSeasonIdx = Math.floor((inGameDays - 1) / 10) % 4;
+        }
+        lastHourChecked = brHours;
+        
+        let seasonEl = document.getElementById("season-display");
+        if (seasonEl) seasonEl.innerText = `Dia ${inGameDays} - ${SEASONS[currentSeasonIdx]}`;
+        
         let timeStr = `BRT: ${String(brHours).padStart(2,'0')}:${String(brMinutes).padStart(2,'0')}:${String(brSeconds).padStart(2,'0')}`;
         document.getElementById("clock-display").innerText = timeStr;
         let menuTime = document.getElementById("menu-time");
@@ -798,6 +858,7 @@
 
     // --- CASAS PROCEDIMENTAIS E AGENDADOR DE LOOT DE 1 HORA ---
     let houses = [];
+    let wells = [];
     let lastLootHour = -1;
     // Enhanced Procedural Generator (20+ Variedades, Andares e Decorações)
             // Enhanced Procedural Generator (Vários Tamanhos, Cômodos e Temas)
@@ -905,7 +966,38 @@
                 id: idGen++, x: x, w: width, h: height,
                 type: typeObj.t, color: color, floors: floors, chests: allChests
             });
+            
+            // Nasce um poço se a casa for brasileira
+            if (typeObj.t === "CASA_BRASILEIRA") {
+                wells.push({ x: x - 60, y: GROUND_Y - 30, id: idGen });
+            }
         }
+        
+        // --- GERAR SAFEZONE (ESTÁDIO) NO MEIO DO MAPA ---
+        houses = houses.filter(h => h.x < 11500 || h.x > 13500); // Limpa o centro para caber o Estádio
+        
+        houses.push({
+            id: 'SAFEZONE', x: 12000, w: 1000, h: 300, type: 'ESTADIO', color: '#1a1a24', isSafezone: true, chests: [],
+            floors: [
+                {
+                    level: 0, isDestroyed: false, hasPower: true, hasStairsUp: true, hasStairsDown: false,
+                    decorations: [
+                        { type: 'text', x: 250, aptName: 'CAMPO PRINCIPAL - ZONA SEGURA' },
+                        { type: 'npc', npcType: 'FOOD', name: 'Cozinheiro', x: 400, w: 30 },
+                        { type: 'npc', npcType: 'MATS', name: 'Sucateiro', x: 700, w: 30 }
+                    ], floorChests: [], floorZombies: []
+                },
+                {
+                    level: 1, isDestroyed: false, hasPower: true, hasStairsUp: false, hasStairsDown: true,
+                    decorations: [
+                        { type: 'text', x: 250, aptName: 'ARQUIBANCADA - ARMAMENTO' },
+                        { type: 'npc', npcType: 'WEAPONS', name: 'Armeiro', x: 400, w: 30 },
+                        { type: 'npc', npcType: 'MEDIC', name: 'Médico', x: 700, w: 30 }
+                    ], floorChests: [], floorZombies: []
+                }
+            ]
+        });
+
         populateAllHouseChests();
     }
 
@@ -1051,10 +1143,13 @@
         if(item) { addItemToInventory(item); alert("Item Adicionado!"); }
     });
     document.getElementById("btn-admin-heal").addEventListener("click", () => {
-        player.hp = 100; player.hunger = 100; updateHealthBar(); 
+        player.hp = 100; player.hunger = 100; player.temperature = 100; player.thirst = 100; updateHealthBar(); 
         document.getElementById("hunger-bar").style.width = "100%";
+        document.getElementById("temp-bar").style.width = "100%";
+        document.getElementById("thirst-bar").style.width = "100%";
         localStorage.setItem("survival_saved_hunger", 100);
-        alert("Vida e Fome restauradas!");
+        localStorage.setItem("survival_saved_thirst", 100);
+        alert("Vida, Fome e Sede restauradas!");
     });
     document.getElementById("btn-admin-god").addEventListener("click", (e) => {
         window.isGodMode = !window.isGodMode;
@@ -1423,7 +1518,7 @@
         'raw_potato': { isFood: true, cooldown: 30, regen: 12, heal: -5 },
         'baked_potato': { isFood: true, cooldown: 30, regen: 35, heal: 5 },
         'canned_beans': { isFood: true, cooldown: 30, regen: 65, heal: 10 },
-        'water_bottle': { isFood: true, cooldown: 30, regen: 30, heal: 5 },
+        'water_bottle': { isFood: true, cooldown: 30, regen: 0, thirstRegen: 40, heal: 5, yields: 'empty_bottle' },
         'raw_fish': { isFood: true, cooldown: 30, regen: 18, heal: -10 },
         'cooked_fish': { isFood: true, cooldown: 30, regen: 60, heal: 20 },
         'raw_corn': { isFood: true, cooldown: 30, regen: 14, heal: -2 },
@@ -1459,8 +1554,30 @@
             this.attackCooldown = 0;
             this.vx = 0; this.vy = 0;
             this.walkCycle = 0;
+            this.type = 'normal';
             this.colorSkin = Math.random() > 0.5 ? "#53664c" : "#6c7a67";
             this.colorShirt = Math.random() > 0.5 ? "#3a2d28" : "#232d2d";
+
+            let roll = Math.random();
+            if (roll > 0.9) this.type = 'toxic';
+            else if (roll > 0.75) this.type = 'tank';
+            else if (roll > 0.6) this.type = 'sprinter';
+
+            if (this.type === 'sprinter') {
+                this.speed = 3.5 + Math.random();
+                this.colorSkin = "#4a2a2a";
+                this.hp = 60;
+            } else if (this.type === 'tank') {
+                this.speed = 0.5 + Math.random() * 0.4;
+                this.w = 45; this.h = 75;
+                this.colorSkin = "#4a5a5a";
+                this.hp = 300;
+            } else if (this.type === 'toxic') {
+                this.speed = 1.0 + Math.random();
+                this.colorSkin = "#4a7a4a";
+                this.colorShirt = "#2a4a2a";
+                this.hp = 80;
+            }
         }
 
                                 update() {
@@ -1488,6 +1605,15 @@
                 }
             }
 
+            if (typeof looters !== 'undefined') {
+                for (let l of looters) {
+                    if (l.hp > 0 && !l.currentInterior) {
+                        let d = Math.hypot(l.x - this.x, l.y - this.y);
+                        if (d < minDist) { minDist = d; targetPlayer = l; targetIsLocal = false; }
+                    }
+                }
+            }
+
             let distToPlayer = minDist;
             let dirToPlayer = Math.sign(targetPlayer.x - this.x);
             let targetInInterior = targetIsLocal ? currentInterior : targetPlayer.currentInterior;
@@ -1502,6 +1628,11 @@
                 else if (this.dir === -1 && dx < 0 && dx > -600) inVision = true;
             }
 
+            // Inteligência Aumentada: Audição local para passos corridos
+            if (!targetInInterior && window.isSprinting && distToPlayer < 400 && Math.abs(dy) < 100) {
+                inVision = true; // Ouvem você correndo
+            }
+
             if (inVision) {
                 this.alertLevel = 100;
             } else {
@@ -1510,12 +1641,22 @@
             this.alertLevel = Math.max(0, Math.min(100, this.alertLevel));
 
             if (this.alertLevel >= 100) {
-                this.dir = dirToPlayer;
-                this.targetX = targetPlayer.x; // Atualiza ponto dinâmico de perseguição
+                // Inteligência Aumentada: Zumbi tenta prever o movimento do jogador (Lead shot)
+                let predictedX = targetPlayer.x + (targetPlayer.vx * 12);
+                let intelligentDir = Math.sign(predictedX - this.x);
+                this.dir = intelligentDir !== 0 ? intelligentDir : dirToPlayer;
+                
+                this.targetX = targetPlayer.x; 
                 this.targetY = targetPlayer.y;
+                
                 if (distToPlayer > 35) {
-                    this.vx += this.speed * this.dir * 0.2;
-                    this.walkCycle += 0.15;
+                    this.vx += this.speed * this.dir * 0.25; // Levemente mais agressivos e focados
+                    this.walkCycle += 0.18;
+                    
+                    // Se estiverem travados tentando andar (obstáculo invisível, parede), eles pulam!
+                    if (Math.abs(this.vx) < 0.2 && this.y >= targetGround - this.h - 5 && Math.random() < 0.05) {
+                        this.vy = -9;
+                    }
                 } else {
                     this.walkCycle = 0;
                     if (this.attackCooldown <= 0) {
@@ -1592,6 +1733,128 @@
         }
     }
 
+    class Looter {
+        constructor(x, y) {
+            this.x = x; this.y = y;
+            this.w = 30; this.h = 55;
+            this.hp = 100;
+            this.speed = 2.5 + Math.random();
+            this.dir = Math.random() > 0.5 ? 1 : -1;
+            this.vx = 0; this.vy = 0;
+            this.walkCycle = 0;
+            this.currentInterior = null;
+            this.attackCooldown = 0;
+            
+            const weapons = ['pistol', 'shotgun', 'machinegun', 'ak_47'];
+            this.weapon = weapons[Math.floor(Math.random() * weapons.length)];
+            this.targetX = this.x + (Math.random() - 0.5) * 1000;
+        }
+
+        update() {
+            this.vy += 0.6; this.x += this.vx; this.y += this.vy; this.vx *= 0.8;
+            let targetGround = this.currentInterior ? (GROUND_Y + INTERIOR_OFFSET_Y) : GROUND_Y;
+            if (this.y + this.h > targetGround) { this.y = targetGround - this.h; this.vy = 0; }
+
+            if (this.attackCooldown > 0) this.attackCooldown--;
+
+            let closestEnemy = null;
+            let minDist = 600; 
+            
+            if (!this.currentInterior && !player.currentInterior && player.hp > 0) {
+                let d = Math.hypot(player.x - this.x, player.y - this.y);
+                if (d < minDist) { minDist = d; closestEnemy = player; }
+            }
+            
+            for (let z of zombies) {
+                if (z.hp > 0) {
+                    let d = Math.hypot(z.x - this.x, z.y - this.y);
+                    if (d < minDist) { minDist = d; closestEnemy = z; }
+                }
+            }
+
+            if (closestEnemy) {
+                this.dir = Math.sign(closestEnemy.x - this.x);
+                if (minDist < 300) this.vx -= this.speed * this.dir * 0.15;
+                else this.vx = 0;
+                
+                this.walkCycle += Math.abs(this.vx) > 0.5 ? 0.2 : 0;
+
+                if (this.attackCooldown <= 0 && Math.abs(closestEnemy.y - this.y) < 150) {
+                    let wpData = WEAPONS[this.weapon];
+                    this.attackCooldown = (wpData.cooldown * 2) || 40; 
+                    
+                    let armAngle = Math.atan2((closestEnemy.y + 25) - (this.y + 25), (closestEnemy.x + 15) - (this.x + 15));
+                    let startX = this.x + 15 + Math.cos(armAngle) * 32;
+                    let startY = this.y + 25 + Math.sin(armAngle) * 32;
+                    
+                    createParticles(startX, startY, "#ff9900", 4);
+                    casings.push({ x: startX, y: startY, vx: -Math.cos(armAngle)*2.5 + (Math.random()-0.5), vy: -3 - Math.random()*2, rot: Math.random(), life: 1.0 });
+                    
+                    let pellets = this.weapon.includes('shotgun') ? 5 : 1;
+                    for(let i = 0; i < pellets; i++) {
+                        let finalAngle = armAngle + (Math.random() - 0.5) * 0.15;
+                        let endX = startX + Math.cos(finalAngle) * (wpData.range || 800);
+                        let endY = startY + Math.sin(finalAngle) * (wpData.range || 800);
+                        tracers.push({ x1: startX, y1: startY, x2: endX, y2: endY, alpha: 1.0 });
+                        checkHitscan(startX, startY, endX, endY, wpData.damage || 15);
+                    }
+                    makeNoise((wpData.range || 800) * 1.5);
+                }
+            } else {
+                if (Math.abs(this.targetX - this.x) < 20 || Math.random() < 0.01) {
+                    this.targetX = this.x + (Math.random() - 0.5) * 1500;
+                }
+                this.dir = Math.sign(this.targetX - this.x);
+                this.vx += this.speed * this.dir * 0.1;
+                this.walkCycle += 0.2;
+
+                if (Math.random() < 0.005 && !this.currentInterior) {
+                    for(let h of houses) {
+                        if(Math.abs(this.x - (h.x + 65)) < 50) {
+                            this.currentInterior = { house: h, floor: 0 };
+                            this.x = h.x + 65; this.y = (GROUND_Y + INTERIOR_OFFSET_Y) - this.h - 10;
+                            this.targetX = this.x + 100;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        draw(ctx) {
+            ctx.save();
+            ctx.translate(this.x - camera.x, this.y - camera.y);
+            let bobY = Math.abs(Math.sin(this.walkCycle)) * 4;
+            let legSwing = Math.sin(this.walkCycle) * 15;
+
+            ctx.fillStyle = "#222"; 
+            ctx.beginPath(); ctx.ellipse(this.w/2 - 6 + legSwing/2, this.h - 5 - bobY/2, 6, 8, legSwing * 0.05, 0, Math.PI*2); ctx.fill();
+            ctx.beginPath(); ctx.ellipse(this.w/2 + 6 - legSwing/2, this.h - 5 + bobY/2, 6, 8, -legSwing * 0.05, 0, Math.PI*2); ctx.fill();
+
+            ctx.translate(0, -bobY);
+            ctx.fillStyle = "#4a4a5a"; ctx.fillRect(0, 15, this.w, 30); 
+            ctx.fillStyle = "#d1a88a"; ctx.beginPath(); ctx.arc(this.w/2, 5, 14, 0, Math.PI * 2); ctx.fill(); 
+            ctx.fillStyle = "#111"; ctx.beginPath(); ctx.arc(this.w/2, 1, 14, Math.PI, 0); ctx.fill(); 
+            
+            ctx.translate(this.w/2, 25);
+            let armAngle = this.dir === 1 ? -Math.PI/6 : Math.PI + Math.PI/6;
+            ctx.rotate(armAngle);
+            ctx.fillStyle = "#4a4a5a"; ctx.fillRect(0, -3, 20, 6); 
+            ctx.fillStyle = "#d1a88a"; ctx.beginPath(); ctx.arc(22, 0, 5, 0, Math.PI*2); ctx.fill(); 
+            
+            ctx.fillStyle = "#111";
+            if (this.weapon === 'pistol') ctx.fillRect(20, -4, 15, 5);
+            else ctx.fillRect(15, -3, 30, 4);
+
+            ctx.restore();
+            
+            ctx.fillStyle = "#ff0000"; ctx.fillRect(this.x - camera.x, this.y - camera.y - 10, (this.hp / 100) * 30, 4);
+        }
+    }
+
+    let looters = [];
+    let toxicClouds = [];
+
     // Inicialização de Zumbis ao longo das faixas do mapa (BEM mais raros)
     for(let i=0; i<6; i++) {
         zombies.push(new Zombie(900 + Math.random() * (WORLD_WIDTH - 2000), GROUND_Y - 55));
@@ -1603,6 +1866,19 @@
                 z.alertLevel = 100; z.dir = Math.sign(player.x - z.x);
             }
         });
+        
+        // Horda de atração sonora/visual extrema (Lanterna à noite ou Tiro Alto)
+        if (radius >= 1500 && Math.random() < 0.45) {
+            let hordeSize = Math.floor(Math.random() * 4) + 3; // Nascem de 3 a 6 zumbis
+            for(let i=0; i<hordeSize; i++) {
+                let side = Math.random() > 0.5 ? 1 : -1;
+                let spawnX = player.x + (side * (900 + Math.random() * 600)); // Nascem fora da visão da tela
+                let z = new Zombie(spawnX, GROUND_Y - 55);
+                z.alertLevel = 100; // Já nascem focados e correndo na sua direção
+                z.dir = -side;
+                zombies.push(z);
+            }
+        }
     }
 
     // --- CLASSE PLAYER REVISADA ---
@@ -1613,7 +1889,7 @@
             this.vx = 0; this.vy = 0;
             this.speed = 4.9; this.jumpForce = -12; // Um "toquinho" mais rápido para todos
             this.grounded = false;
-            this.hp = 100; this.hunger = 100;
+            this.hp = 100; this.hunger = 100; this.temperature = 100; this.thirst = 100;
             this.ammo = { pistol: 45, shotgun: 12, machinegun: 90 };
             this.walkCycle = 0; this.isMoving = false;
             this.actionTimer = 0; this.swapTimer = 0; this.tick = 0;
@@ -1625,7 +1901,7 @@
                 update() {
             if(gameState !== "PLAYING" || this.hp <= 0) return;
             
-            if (window.isGodMode) { this.hp = 100; this.hunger = 100; updateHealthBar(); document.getElementById("hunger-bar").style.width = "100%"; }
+            if (window.isGodMode) { this.hp = 100; this.hunger = 100; this.temperature = 100; this.thirst = 100; updateHealthBar(); document.getElementById("hunger-bar").style.width = "100%"; document.getElementById("temp-bar").style.width = "100%"; document.getElementById("thirst-bar").style.width = "100%"; }
 
             this.tick++;
             this.isMoving = false;
@@ -1644,7 +1920,7 @@
                     this.hunger--;
                     localStorage.setItem("survival_saved_hunger", this.hunger); // Salva a fome ao descer
                     // Regeneração Terraria/Minecraft: Fome alta cura a vida aos poucos
-                    if(this.hunger > 60 && this.hp < 100) {
+                    if(this.hunger > 60 && this.hp < 100 && this.temperature > 50 && this.thirst > 50) {
                         this.hp = Math.min(100, this.hp + 5);
                         updateHealthBar();
                         createParticles(this.x + this.width/2, this.y, "#44aa44", 5);
@@ -1654,6 +1930,60 @@
                     updateHealthBar();
                 }
                 document.getElementById("hunger-bar").style.width = this.hunger + "%";
+
+                if (this.thirst > 0) {
+                    this.thirst--;
+                    localStorage.setItem("survival_saved_thirst", this.thirst);
+                } else if (this.thirst <= 0) {
+                    this.hp -= 10; // Morre de sede mais rápido
+                    updateHealthBar();
+                }
+                document.getElementById("thirst-bar").style.width = this.thirst + "%";
+            }
+
+            // Mecânica de Temperatura Corporal (Hipotermia) e Aggro de Luz
+            if (this.tick % 60 === 0) {
+                let timeFloat = brHours + brMinutes / 60;
+                let isNight = timeFloat >= 18.5 || timeFloat < 5.5;
+                let nearCampfire = campfires.some(camp => Math.abs((this.x + this.width/2) - (camp.x + 12)) < 150);
+                
+                // Temperatura cai no frio, sobe no calor
+                if (nearCampfire || currentInterior) {
+                    this.temperature = Math.min(100, this.temperature + 5);
+                } else if (isNight) {
+                    let tempDrop = 1.5;
+                    if (weatherState === 1) tempDrop = 2.5; // Chuva Leve
+                    if (weatherState === 2) tempDrop = 4.5; // Chuva Pesada (Congelante)
+                    if (weatherState === 3) tempDrop = 3;   // Névoa
+                    
+                    if (currentSeasonIdx === 3) tempDrop *= 1.8; // INVERNO: Noites são cruéis e congelantes
+
+                    this.temperature = Math.max(0, this.temperature - tempDrop);
+                } else if (weatherState === 2) {
+                    this.temperature = Math.max(0, this.temperature - (currentSeasonIdx === 3 ? 2 : 1)); // Frio de chuva pesada
+                } else {
+                    this.temperature = Math.min(100, this.temperature + (currentSeasonIdx === 3 ? 0.5 : 2)); // Aquece bem menos no inverno
+                }
+
+                // Dano por Hipotermia
+                if (this.temperature <= 0) {
+                    this.hp -= 3;
+                    updateHealthBar();
+                    createParticles(this.x + this.width/2, this.y, "#00ffff", 5); // Partículas de gelo
+                }
+                
+                let tempBar = document.getElementById("temp-bar");
+                if (tempBar) {
+                    tempBar.style.width = this.temperature + "%";
+                    if (this.temperature < 30) tempBar.style.background = "linear-gradient(90deg, #0055aa, #001133)";
+                    else tempBar.style.background = "linear-gradient(90deg, #00ffff, #0055aa)";
+                }
+
+                // Aggro de Lanterna à Noite (Atrai de muito longe silenciosamente)
+                let currentWeaponType = equipment[currentActive] ? equipment[currentActive].type : null;
+                if (isNight && currentWeaponType === 'lanterna' && !currentInterior) {
+                    makeNoise(2200); // Raio massivo de atração visual (zumbis veem a luz)
+                }
             }
 
 
@@ -1855,10 +2185,6 @@
                     // Animação épica puxando bala do bolso e colocando na câmara
                     armAngle += Math.PI/4; actionOffset = -8; 
                     actionRot = progress > 0.4 && progress < 0.8 ? Math.sin(progress * Math.PI * 10) * 0.05 : 0; 
-                    if (progress > 0.4 && progress < 0.8) {
-                        ctx.fillStyle = "#bfa054"; // Bala na mão direita subindo
-                        ctx.fillRect(14 + actionOffset, -6 * flip, 3, 5 * flip);
-                    }
                 } else {
                     // Rifle / SMG
                     armAngle += Math.PI/4;
@@ -2125,6 +2451,7 @@
 
                 tryFire() {
             if (inventoryOpen || this.swapTimer > 0 || placementMode || this.hp <= 0) return;
+            if (currentInterior && currentInterior.house.isSafezone) return; // Paz Absoluta na Safezone
             let cw = equipment[currentActive] ? equipment[currentActive].type : null;
             
             // LÓGICA DO SOCO (Mãos limpas - Hitbox Aumentada)
@@ -2149,19 +2476,30 @@
                 this.actionTimer = wp.cooldown;
                 this.eatingType = cw; // Salva a referência da comida para não bugar a renderização
                 makeNoise(250); // Barulho de mastigar atrai atenção
-                player.hunger = Math.min(100, player.hunger + wp.regen);
-                player.hp = Math.min(100, player.hp + wp.heal);
-                updateHealthBar(); document.getElementById("hunger-bar").style.width = player.hunger + "%";
+                player.hunger = Math.min(100, player.hunger + (wp.regen || 0));
+                player.hp = Math.min(100, player.hp + (wp.heal || 0));
+                if (wp.thirstRegen) player.thirst = Math.min(100, player.thirst + wp.thirstRegen);
+                updateHealthBar(); 
+                document.getElementById("hunger-bar").style.width = player.hunger + "%";
+                document.getElementById("thirst-bar").style.width = player.thirst + "%";
                 createParticles(this.x + this.width/2, this.y + 10, "#44aa44", 10);
                 
                 let itemObj = equipment[currentActive];
                 if(itemObj) {
                     itemObj.count = (itemObj.count || 1) - 1;
                     if(itemObj.count <= 0) {
-                        itemObj.el.remove();
-                        inventoryItems = inventoryItems.filter(i => i.id !== itemObj.id);
-                        equipment[currentActive] = null;
-                        document.getElementById(currentActive === 'main' ? 'equip-main' : 'equip-reserve').dataset.filled = "false";
+                        if (wp.yields) {
+                            itemObj.type = wp.yields;
+                            itemObj.count = 1;
+                            itemObj.el.querySelector('div').className = ITEM_DB[wp.yields].class;
+                        } else {
+                            itemObj.el.remove();
+                            inventoryItems = inventoryItems.filter(i => i.id !== itemObj.id);
+                            equipment[currentActive] = null;
+                            document.getElementById(currentActive === 'main' ? 'equip-main' : 'equip-reserve').dataset.filled = "false";
+                        }
+                    } else {
+                        if (wp.yields) addItemToInventory(wp.yields, 1);
                     }
                 }
                 lastFireTime = now; return;
@@ -2247,7 +2585,12 @@
                 const startX = this.x + this.width/2 + Math.cos(armAngle) * 32;
                 const startY = this.y + 25 + Math.sin(armAngle) * 32;
                 createParticles(startX, startY, "#ff9900", 4);
-                makeNoise(wp.range * 1.5);
+                
+                let timeFloat = brHours + brMinutes / 60;
+                let isNight = timeFloat >= 18.5 || timeFloat < 5.5;
+                // Tiros à noite propagam o som de forma extrema, alertando hordas de telas de distância
+                let noiseMultiplier = isNight ? 4.0 : 1.5; 
+                makeNoise(wp.range * noiseMultiplier);
 
                 casings.push({ x: startX, y: startY, vx: -Math.cos(armAngle)*2.5 + (Math.random()-0.5), vy: -3 - Math.random()*2, rot: Math.random(), life: 1.0 });
 
@@ -2290,6 +2633,17 @@
                 }
             }
             
+            // Colisão com Looters
+            if (typeof looters !== 'undefined') {
+                for(let l of looters) {
+                    if(l.hp > 0 && px > l.x && px < l.x+l.w && py > l.y && py < l.y+l.h) {
+                        l.hp -= damage;
+                        createParticles(px, py, "#aa0000", 10);
+                        return true;
+                    }
+                }
+            }
+
             // Colisão com Outros Jogadores (PvP)
             if(isMultiplayer) {
                 for(let id in otherPlayers) {
@@ -2437,10 +2791,19 @@
         if(e.key === 'a' || e.key === 'ArrowLeft' || e.key === 'd' || e.key === 'ArrowRight') window.isSprinting = false;
     });
 
+    let lastTouchLeft = 0; let lastTouchRight = 0;
     function bindBtn(id, key) {
         const btn = document.getElementById(id);
-        btn.addEventListener("touchstart", (e) => { e.preventDefault(); controls[key] = true; });
-        btn.addEventListener("touchend", (e) => { e.preventDefault(); controls[key] = false; });
+        btn.addEventListener("touchstart", (e) => { 
+            e.preventDefault(); controls[key] = true; 
+            let now = Date.now();
+            if (key === 'left') { if(now - lastTouchLeft < 300) window.isSprinting = true; lastTouchLeft = now; }
+            if (key === 'right') { if(now - lastTouchRight < 300) window.isSprinting = true; lastTouchRight = now; }
+        });
+        btn.addEventListener("touchend", (e) => { 
+            e.preventDefault(); controls[key] = false; 
+            if (key === 'left' || key === 'right') window.isSprinting = false;
+        });
         btn.addEventListener("mousedown", () => controls[key] = true);
         btn.addEventListener("mouseup", () => controls[key] = false);
     }
@@ -2482,64 +2845,63 @@
     // --- INTERAÇÃO EXPANDIDA COM CASAS E BAÚS REAIS ---
                 function checkInteract() {
         if(currentInterior) {
-            if(!currentInterior.house.isRealTent) {
-                let curF = currentInterior.house.floors[currentInterior.floor];
+            if(currentInterior.house.isRealTent) {
                 let px = player.x + player.width/2;
-                let hx = currentInterior.house.x;
-                let hw = currentInterior.house.w;
-                
-                // Posições baseadas no novo design: Andar 1 (Porta esq, Escada dir). Andar 2+ (Escadas esq)
-                let upX = (currentInterior.floor === 0) ? (hx + hw - 75) : (hx + 135);
-                let downX = (currentInterior.floor === 0) ? -9999 : (hx + 65);
-                let exitX = (currentInterior.floor === 0) ? (hx + 65) : -9999;
-                
-                // Navegação fluida por escadas
-                if(curF.hasStairsUp && Math.abs(px - upX) < 40) {
-                    currentInterior.floor++; player.x = hx + 65; return; // Sobe e aparece na escada da esquerda do andar superior
-                }
-                if(curF.hasStairsDown && Math.abs(px - downX) < 40) {
-                    currentInterior.floor--; 
-                    player.x = (currentInterior.floor === 0) ? (hx + hw - 100) : (hx + 135); // Desce pra escada correspondente
-                    return;
-                }
-                
-                // Porta de Saída do Térreo (Esquerda)
-                if(currentInterior.floor === 0 && Math.abs(px - exitX) < 40) {
-                    player.y = GROUND_Y - player.height - 10;
-                    currentInterior = null;
-                    document.getElementById("chest-ui").style.display = "none";
-                    document.getElementById("tent-ui").style.display = "none";
-                    if(inventoryOpen) toggleUI(); 
-                    saveGameData(); 
-                    return;
-                }
-                return; // Impede o fechamento acidental da casa se apertar no nada
-            } else {
-                currentInterior = null;
-                document.getElementById("chest-ui").style.display = "none";
-                document.getElementById("tent-ui").style.display = "none";
-                if(inventoryOpen) toggleUI(); 
-                saveGameData(); 
+                if(Math.abs(px - (currentInterior.house.x + 30)) < 40) exitInteriorTransition();
                 return;
             }
+            
+            let curF = currentInterior.house.floors[currentInterior.floor];
+            let px = player.x + player.width/2;
+            let hx = currentInterior.house.x;
+            let hw = currentInterior.house.w;
+            
+            let upX = (currentInterior.floor === 0) ? (hx + hw - 75) : (hx + 135);
+            let downX = (currentInterior.floor === 0) ? -9999 : (hx + 65);
+            let exitX = (currentInterior.floor === 0) ? (hx + 65) : -9999;
+            
+            if(curF.hasStairsUp && Math.abs(px - upX) < 40) {
+                transitionToInterior(currentInterior.house, currentInterior.floor + 1, null, hx + 65, player.y); return;
+            }
+            if(curF.hasStairsDown && Math.abs(px - downX) < 40) {
+                let targetX = (currentInterior.floor - 1 === 0) ? (hx + hw - 100) : (hx + 135);
+                transitionToInterior(currentInterior.house, currentInterior.floor - 1, null, targetX, player.y); return;
+            }
+            if(currentInterior.floor === 0 && Math.abs(px - exitX) < 40) {
+                exitInteriorTransition(); return;
+            }
+            return;
         }
 
         let wx = player.x + player.width/2;
-        for(let h of houses) {
-            let doorX = h.x + 65; // Entrada principal agora na esquerda
-            if(Math.abs(wx - doorX) < 50) {
-                currentInterior = { house: h, floor: 0, chestIdx: null }; 
-                player.x = h.x + 65; player.y = (GROUND_Y + INTERIOR_OFFSET_Y) - player.height - 10;
+        
+        for(let w of wells) {
+            if(Math.abs(wx - (w.x + 20)) < 60) {
+                let cwItem = equipment[currentActive];
+                if (!cwItem) {
+                    player.thirst = 100; document.getElementById("thirst-bar").style.width = "100%";
+                    createParticles(player.x + 15, player.y + 10, "#0088ff", 15);
+                } else if (cwItem.type === 'empty_bottle') {
+                    cwItem.type = 'water_bottle'; cwItem.el.querySelector('.css-empty-bottle').className = 'css-water';
+                    createParticles(player.x + 15, player.y + 10, "#0088ff", 15);
+                }
                 return;
             }
         }
 
-        
+        for(let h of houses) {
+            let doorX = h.x + 65;
+            if(Math.abs(wx - doorX) < 50) {
+                transitionToInterior(h, 0, null, h.x + 65, (GROUND_Y + INTERIOR_OFFSET_Y) - player.height - 10);
+                return;
+            }
+        }
+
         for(let tent of tents) {
             if(Math.abs(wx - (tent.x + 50)) < 60) {
                 if (!tent.chests) tent.chests = [{ id:0, items: [] }];
-                currentInterior = { house: { id: 'tent', isRealTent: true, x: tent.x, w: 150, chests: tent.chests }, floor: 0, chestIdx: 0 };
-                setupTentListUI(currentInterior.house, 0);
+                let tentHouse = { id: 'tent', isRealTent: true, x: tent.x, w: 200, chests: tent.chests, floors: [{ decorations: [], floorChests: [{ id: 0, localX: 100 }] }] };
+                transitionToInterior(tentHouse, 0, null, tentHouse.x + 60, (GROUND_Y + INTERIOR_OFFSET_Y) - player.height - 10);
                 return;
             }
         }
@@ -2658,24 +3020,128 @@
         if(e.touches.length > 0) handleAim(e.touches[0].clientX, e.touches[0].clientY);
     }, {passive: false});
 
-    function checkInteriorChestClick(cx, cy) {
-        if(currentInterior && !currentInterior.house.isRealTent) {
-            let h = currentInterior.house;
-            let curF = h.floors[currentInterior.floor];
-            let houseGroundY = GROUND_Y + INTERIOR_OFFSET_Y;
-            
-                                for(let chest of curF.floorChests) {
-                        let chestWorldY = houseGroundY - 25; // Baús agora ficam sempre no chão
-                        let chestWorldX = h.x + chest.localX;
-                        
-                        // Hitbox do Baú Físico Expandida (Verificando Clique do Mouse/Dedo com área maior)
-                        if(cx >= chestWorldX - 15 && cx <= chestWorldX + 55 && cy >= chestWorldY - 20 && cy <= chestWorldY + 45) {
-                            let pMidX = player.x + player.width/2;
+    const NPC_SHOPS = {
+        'FOOD': [{type: 'canned_beans', price: 2}, {type: 'water_bottle', price: 1}, {type: 'cooked_meat', price: 3}, {type: 'raw_potato', price: 1}],
+        'MATS': [{type: 'wood', price: 1}, {type: 'stone', price: 1}, {type: 'scrap_metal', price: 2}, {type: 'dirty_rags', price: 1}, {type: 'gunpowder', price: 3}],
+        'WEAPONS': [{type: 'pistol', price: 15}, {type: 'shotgun', price: 30}, {type: 'ak_47', price: 60}, {type: 'machete', price: 10}, {type: 'ammo_pistol', price: 2}, {type: 'ammo_shotgun', price: 4}, {type: 'ammo_machinegun', price: 5}, {type: 'mag_pistol', price: 5}, {type: 'mag_ak47', price: 10}],
+        'MEDIC': [{type: 'dirty_rags', price: 2}, {type: 'water_bottle', price: 1}]
+    };
 
-                    if(Math.abs(pMidX - (chestWorldX + 20)) < 80) { // Trava de Proximidade pra não abrir de longe
-                        window.lastOpenedChest = chest.id;
-                        setupChestGridUI(h, chest.id);
-                        return true;
+    function getPlayerScrapAmount() {
+        return inventoryItems.reduce((acc, item) => (item.type === 'reinforced_scrap' && !item.equippedSlot) ? acc + (item.count || 1) : acc, 0);
+    }
+
+    function consumePlayerScrap(amount) {
+        let remaining = amount;
+        for (let i = inventoryItems.length - 1; i >= 0; i--) {
+            let item = inventoryItems[i];
+            if (item.type === 'reinforced_scrap' && !item.equippedSlot) {
+                if (item.count > remaining) {
+                    item.count -= remaining;
+                    item.el.querySelector('.item-count').innerText = item.count;
+                    return true;
+                } else {
+                    remaining -= item.count;
+                    item.el.remove();
+                    inventoryItems.splice(i, 1);
+                    if (remaining === 0) return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    function openNPCShop(npc) {
+        let shopUi = document.getElementById("shop-ui");
+        let listEl = document.getElementById("shop-list");
+        document.getElementById("shop-title").innerText = npc.name.toUpperCase();
+        listEl.innerHTML = `<p style="text-align:center; color:#ccc; font-size:12px;">Seu saldo: <span style="color:#ffaa00; font-weight:bold;">${getPlayerScrapAmount()}</span> Sucata Reforçada</p>`;
+        
+        let inventoryHTML = `<h3 style="color:#aaa; font-size:14px; margin-top:10px;">VENDER SEUS ITENS</h3>`;
+        inventoryItems.forEach(item => {
+            if(!item.equippedSlot && item.type !== 'reinforced_scrap') {
+                let dbItem = ITEM_DB[item.type];
+                let sellPrice = Math.max(1, Math.floor((dbItem.price || 2) / 2)); 
+                inventoryHTML += `
+                    <div class="shop-item-row">
+                        <span>${dbItem.name} ${item.count ? '(x'+item.count+')' : ''}</span>
+                        <button class="shop-btn sell-btn" data-id="${item.id}" data-price="${sellPrice}">Vender (+${sellPrice})</button>
+                    </div>`;
+            }
+        });
+        listEl.innerHTML += inventoryHTML;
+
+        listEl.innerHTML += `<h3 style="color:#aaa; font-size:14px; margin-top:10px;">COMPRAR COM SUCATA</h3>`;
+        let shopItems = NPC_SHOPS[npc.npcType] || [];
+        shopItems.forEach(sItem => {
+            let dbItem = ITEM_DB[sItem.type];
+            listEl.innerHTML += `
+                <div class="shop-item-row">
+                    <span>${dbItem.name}</span>
+                    <button class="shop-btn buy-btn" data-type="${sItem.type}" data-price="${sItem.price}">Comprar (-${sItem.price})</button>
+                </div>`;
+        });
+        
+        shopUi.style.display = "flex";
+        
+        document.querySelectorAll(".buy-btn").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                let price = parseInt(e.target.getAttribute("data-price"));
+                let type = e.target.getAttribute("data-type");
+                if (getPlayerScrapAmount() >= price) {
+                    if (addItemToInventory(type)) { consumePlayerScrap(price); openNPCShop(npc); } 
+                    else { alert("Sem espaço na mochila!"); }
+                } else { alert("Sucata Reforçada insuficiente!"); }
+            });
+        });
+        
+        document.querySelectorAll(".sell-btn").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                let id = parseInt(e.target.getAttribute("data-id"));
+                let price = parseInt(e.target.getAttribute("data-price"));
+                let itemIndex = inventoryItems.findIndex(i => i.id === id);
+                if (itemIndex !== -1) {
+                    let itemToSell = inventoryItems[itemIndex];
+                    let amt = itemToSell.count || 1;
+                    itemToSell.el.remove(); inventoryItems.splice(itemIndex, 1);
+                    addItemToInventory('reinforced_scrap', price * amt);
+                    openNPCShop(npc);
+                }
+            });
+        });
+    }
+
+    document.getElementById("shop-close").addEventListener("click", () => document.getElementById("shop-ui").style.display = "none");
+
+    function checkInteriorChestClick(cx, cy) {
+        if(currentInterior) {
+            let h = currentInterior.house;
+            let houseGroundY = GROUND_Y + INTERIOR_OFFSET_Y;
+            let pMidX = player.x + player.width/2;
+
+            if (h.isRealTent) {
+                let chestWorldY = houseGroundY - 25; let chestWorldX = h.x + 100;
+                if(cx >= chestWorldX - 15 && cx <= chestWorldX + 55 && cy >= chestWorldY - 20 && cy <= chestWorldY + 45) {
+                    if(Math.abs(pMidX - (chestWorldX + 20)) < 80) { setupTentListUI(h, 0); return true; }
+                } return false;
+            }
+
+            let curF = h.floors[currentInterior.floor];
+            
+            for(let dec of curF.decorations) {
+                if (dec.type === 'npc') {
+                    let npcX = h.x + dec.x; let npcY = houseGroundY - 55;
+                    if(cx >= npcX - 10 && cx <= npcX + 40 && cy >= npcY - 10 && cy <= npcY + 60) {
+                        if(Math.abs(pMidX - (npcX + 15)) < 100) { openNPCShop(dec); return true; }
+                    }
+                }
+            }
+
+            for(let chest of curF.floorChests) {
+                let chestWorldY = houseGroundY - 25; let chestWorldX = h.x + chest.localX;
+                if(cx >= chestWorldX - 15 && cx <= chestWorldX + 55 && cy >= chestWorldY - 20 && cy <= chestWorldY + 45) {
+                    if(Math.abs(pMidX - (chestWorldX + 20)) < 80) {
+                        window.lastOpenedChest = chest.id; setupChestGridUI(h, chest.id); return true;
                     }
                 }
             }
@@ -2761,6 +3227,7 @@
         'baked_potato': { w: 1, h: 1, class: 'css-baked-potato', name: 'Batata Assada' },
         'canned_beans': { w: 1, h: 1, class: 'css-beans', name: 'Feijão Enlatado' },
         'water_bottle': { w: 1, h: 1, class: 'css-water', name: 'Garrafa D\'água' },
+        'empty_bottle': { w: 1, h: 1, class: 'css-empty-bottle', name: 'Garrafa Vazia' },
         'raw_fish': { w: 1, h: 1, class: 'css-raw-fish', name: 'Peixe Cru' },
         'cooked_fish': { w: 1, h: 1, class: 'css-cooked-fish', name: 'Peixe Assado' },
         'raw_corn': { w: 1, h: 1, class: 'css-raw-corn', name: 'Milho Cru' },
@@ -2786,6 +3253,7 @@
         'tactical_shotgun': { w: 2, h: 1, class: 'css-shotgun', name: 'Escopeta Tática (Craft)', internalAmmo: 'ammo_shotgun', maxCap: 8 },
         'desert_eagle': { w: 1, h: 1, class: 'css-revolver', name: 'Desert Eagle .50 (Craft)', reqMag: 'mag_pistol' },
         'loot_bag': { w: 1, h: 1, class: 'css-loot-bag', name: 'Mochila de Saque' },
+        'reinforced_scrap': { w: 1, h: 1, class: 'css-reinforced-scrap', name: 'Sucata Reforçada (Moeda)' },
         
         // Novos Carregadores (Magazines)
         'mag_pistol': { w: 1, h: 1, class: 'css-mag-pistol', name: 'Carregador 9mm', accepts: 'ammo_pistol', maxCap: 15 },
@@ -3270,6 +3738,34 @@
 
     setInterval(saveGameData, 5000); // Mantido o Auto-save a cada 5 segundos. Retirei o Listener do botão antigo.
 
+    function transitionToInterior(houseObj, floorIdx, chestIdx, targetX, targetY) {
+        let overlay = document.getElementById("fade-overlay");
+        overlay.style.opacity = 1;
+        controls.actionHold = false;
+        setTimeout(() => {
+            currentInterior = { house: houseObj, floor: floorIdx, chestIdx: chestIdx };
+            player.x = targetX; player.y = targetY;
+            if(chestIdx !== null && houseObj.isRealTent) setupTentListUI(houseObj, chestIdx);
+            setTimeout(() => { overlay.style.opacity = 0; }, 300);
+        }, 400);
+    }
+    
+    function exitInteriorTransition() {
+        let overlay = document.getElementById("fade-overlay");
+        overlay.style.opacity = 1;
+        controls.actionHold = false;
+        setTimeout(() => {
+            player.y = GROUND_Y - player.height - 10;
+            currentInterior = null;
+            document.getElementById("chest-ui").style.display = "none";
+            document.getElementById("tent-ui").style.display = "none";
+            document.getElementById("shop-ui").style.display = "none";
+            if(inventoryOpen) toggleUI(); 
+            saveGameData();
+            setTimeout(() => { overlay.style.opacity = 0; }, 300);
+        }, 400);
+    }
+
     function loadGameData() {
         // Recuperar a fome imutável salva no navegador
         const savedHunger = localStorage.getItem("survival_saved_hunger");
@@ -3277,13 +3773,20 @@
             player.hunger = parseFloat(savedHunger);
             document.getElementById("hunger-bar").style.width = player.hunger + "%";
         }
+        const savedThirst = localStorage.getItem("survival_saved_thirst");
+        if(savedThirst !== null) {
+            player.thirst = parseFloat(savedThirst);
+            document.getElementById("thirst-bar").style.width = player.thirst + "%";
+        }
 
         const saved = localStorage.getItem("survivalSave_v2"); 
         if(!saved) {
-            // Spawn aleatório na primeira vez. Jogo Hardcore: Você começa COM NADA.
-            player.x = 1000 + Math.random() * 20000;
-            player.y = GROUND_Y - player.height;
-            // Apenas a roupa do corpo e a coragem.
+            // Spawn inicial obriga a nascer dentro do Estádio
+            let safezone = houses.find(h => h.isSafezone);
+            if(safezone) {
+                currentInterior = { house: safezone, floor: 0, chestIdx: null };
+                player.x = safezone.x + 100; player.y = (GROUND_Y + INTERIOR_OFFSET_Y) - player.height - 10;
+            } else { player.x = 12500; player.y = GROUND_Y - player.height; }
             return;
         }
         const parsed = JSON.parse(saved);
@@ -3396,51 +3899,82 @@
         }
 
              // --- RENDERIZAÇÃO DO INTERIOR AVANÇADO (Múltiplos Andares e Cômodos) ---
-        if(currentInterior && !currentInterior.house.isRealTent) {
+        if(currentInterior) {
             ctx.fillStyle = "#050404"; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.save(); ctx.translate(-camera.x, -camera.y);            
             let h = currentInterior.house;
-            let floorData = h.floors[currentInterior.floor];
             let houseGroundY = GROUND_Y + INTERIOR_OFFSET_Y;
+
+            if (h.isRealTent) {
+                // Interior 3D da Barraca
+                ctx.fillStyle = "#1a2a1a"; ctx.fillRect(h.x, houseGroundY - 120, h.w, 120);
+                ctx.fillStyle = "#111"; ctx.beginPath(); ctx.moveTo(h.x, houseGroundY); ctx.lineTo(h.x + 20, houseGroundY - 120); ctx.lineTo(h.x + h.w - 20, houseGroundY - 120); ctx.lineTo(h.x + h.w, houseGroundY); ctx.fill(); // Parede fundo barraca
+                ctx.fillStyle = "#0a150a"; ctx.fillRect(h.x, houseGroundY, h.w, 15); // Chão da barraca
+
+                let chestWorldY = houseGroundY - 25; let chestWorldX = h.x + 100;
+                ctx.fillStyle = "rgba(0,0,0,0.6)"; ctx.fillRect(chestWorldX, chestWorldY + 20, 40, 5); 
+                ctx.fillStyle = "#2c3a21"; ctx.fillRect(chestWorldX, chestWorldY, 40, 25); 
+                ctx.fillStyle = "#4b6a2b"; ctx.fillRect(chestWorldX + 2, chestWorldY + 2, 36, 21); 
+                ctx.fillStyle = "#ccc"; ctx.fillRect(chestWorldX + 15, chestWorldY + 10, 10, 6); 
+
+                let pMidX = player.x + player.width/2;
+                if(Math.abs(pMidX - (chestWorldX + 20)) < 80) {
+                    ctx.strokeStyle = "rgba(255, 255, 255, 0.4)"; ctx.lineWidth = 1; ctx.strokeRect(chestWorldX - 2, chestWorldY - 2, 44, 29);
+                    ctx.fillStyle = "#fff"; ctx.font = "9px Courier"; ctx.fillText("ABRIR", chestWorldX + 6, chestWorldY - 5);
+                }
+
+                ctx.fillStyle = "#000"; ctx.fillRect(h.x + 10, houseGroundY - 80, 40, 80);
+                ctx.fillStyle = "#fff"; ctx.font = "bold 10px Courier"; ctx.fillText("SAÍDA", h.x + 15, houseGroundY - 90);
+
+                ctx.restore();
+                player.update(); player.draw(ctx);
+                
+                let btnInteract = document.getElementById("btn-interact");
+                if(Math.abs(pMidX - (h.x + 30)) < 40) { btnInteract.innerText = "SAIR"; btnInteract.style.display = "flex"; }
+                else { btnInteract.style.display = "none"; }
+                
+                requestAnimationFrame(gameLoop); return;
+            }
+
+            let floorData = h.floors[currentInterior.floor];
             let isHospital = h.type === 'CLINICA_MEDICA';
+            let isSafezone = h.isSafezone;
             
-            // Renderização de Casas Complexa (Profundidade e Cômodos Interligados)
             let wallGrad = ctx.createLinearGradient(0, houseGroundY - 240, 0, houseGroundY);
             if(isHospital) {
                 wallGrad.addColorStop(0, floorData.isDestroyed ? "#b0b0b0" : "#ffffff");
                 wallGrad.addColorStop(1, "#999999");
+            } else if (isSafezone) {
+                wallGrad.addColorStop(0, "#2c3e50"); wallGrad.addColorStop(1, "#1a252f"); // Stadium Color
             } else {
                 wallGrad.addColorStop(0, floorData.isDestroyed ? "#110e0a" : "#1f1b18");
                 wallGrad.addColorStop(1, "#050403");
             }
             ctx.fillStyle = wallGrad; ctx.fillRect(h.x, houseGroundY - 240, h.w, 240);
             
-            // Ilusão de Cômodos Interligados (Parallax e Profundidade 3D)
             for(let bx = h.x + 80; bx < h.x + h.w - 100; bx += 180) {
-                ctx.fillStyle = "#0a0806"; ctx.fillRect(bx, houseGroundY - 160, 70, 160); // Marco da porta
+                ctx.fillStyle = isSafezone ? "#0d141a" : "#0a0806"; ctx.fillRect(bx, houseGroundY - 160, 70, 160); 
                 let depthGrad = ctx.createLinearGradient(bx, 0, bx + 70, 0);
-                depthGrad.addColorStop(0, "rgba(0,0,0,0.9)"); depthGrad.addColorStop(0.5, floorData.isDestroyed ? "#1a100c" : "#2a1e18"); depthGrad.addColorStop(1, "rgba(0,0,0,0.9)");
-                ctx.fillStyle = depthGrad; ctx.fillRect(bx + 4, houseGroundY - 156, 62, 156); // Fundo do quarto
-                ctx.fillStyle = "rgba(0,0,0,0.6)"; ctx.beginPath(); ctx.moveTo(bx+4, houseGroundY); ctx.lineTo(bx+20, houseGroundY - 30); ctx.lineTo(bx+50, houseGroundY - 30); ctx.lineTo(bx+66, houseGroundY); ctx.fill(); // Chão 3D
+                depthGrad.addColorStop(0, "rgba(0,0,0,0.9)"); depthGrad.addColorStop(0.5, isSafezone ? "#1b2838" : (floorData.isDestroyed ? "#1a100c" : "#2a1e18")); depthGrad.addColorStop(1, "rgba(0,0,0,0.9)");
+                ctx.fillStyle = depthGrad; ctx.fillRect(bx + 4, houseGroundY - 156, 62, 156); 
+                ctx.fillStyle = "rgba(0,0,0,0.6)"; ctx.beginPath(); ctx.moveTo(bx+4, houseGroundY); ctx.lineTo(bx+20, houseGroundY - 30); ctx.lineTo(bx+50, houseGroundY - 30); ctx.lineTo(bx+66, houseGroundY); ctx.fill(); 
             }
 
             ctx.fillStyle = "rgba(17, 12, 8, 0.4)"; ctx.fillRect(h.x + 10, houseGroundY - 230, h.w - 20, 220); 
             ctx.strokeStyle = "#332215"; ctx.lineWidth = 8; ctx.strokeRect(h.x, houseGroundY - 240, h.w, 240);
-            ctx.fillStyle = "rgba(0,0,0,0.8)"; ctx.fillRect(h.x, houseGroundY - 240, h.w, 30); // Sombreamento do teto
+            ctx.fillStyle = "rgba(0,0,0,0.8)"; ctx.fillRect(h.x, houseGroundY - 240, h.w, 30);
             
-            // Janelas Intercaladas no corredor
             for(let jx = h.x + 40; jx < h.x + h.w - 60; jx += 80) {
                 ctx.fillStyle = floorData.isDestroyed ? "#0c1218" : "#1a2530"; ctx.fillRect(jx, houseGroundY - 180, 50, 60);
                 ctx.strokeStyle = "#111"; ctx.lineWidth = 4; ctx.strokeRect(jx, houseGroundY - 180, 50, 60);
                 ctx.beginPath(); ctx.moveTo(jx + 25, houseGroundY - 180); ctx.lineTo(jx + 25, houseGroundY - 120); ctx.stroke();
-                if(floorData.isDestroyed) { // Vidros Quebrados
+                if(floorData.isDestroyed) { 
                     ctx.beginPath(); ctx.moveTo(jx, houseGroundY - 140); ctx.lineTo(jx+50, houseGroundY - 150); ctx.stroke();
                 } else {
                     ctx.fillStyle = "rgba(255,255,255,0.05)"; ctx.fillRect(jx+2, houseGroundY-178, 21, 56);
                 }
             }
             
-            // Sistema Elétrico do Prédio/Casa (Luzes Fluorescentes)
             if(floorData.hasPower) {
                 let lampSwing = Math.sin(Date.now() * 0.002) * 2;
                 for(let lx = h.x + h.w/3; lx < h.x + h.w; lx += h.w/3) {
@@ -3452,22 +3986,26 @@
                     ctx.fillStyle = lightGrad; ctx.beginPath(); ctx.moveTo(lx + lampSwing, houseGroundY - 220); 
                     ctx.lineTo(lx - 80 + lampSwing, houseGroundY); ctx.lineTo(lx + 80 + lampSwing, houseGroundY); ctx.fill();
                 }
-            } else if (!floorData.isDestroyed) { // Lâmpadas Apagadas
+            } else if (!floorData.isDestroyed) { 
                 ctx.fillStyle = "#222"; ctx.fillRect(h.x + h.w/2 - 2, houseGroundY - 240, 4, 20);
                 ctx.fillStyle = "#444"; ctx.beginPath(); ctx.arc(h.x + h.w/2, houseGroundY - 220, 6, 0, Math.PI*2); ctx.fill();
             }
 
-                               // Renderizar Móveis Decorativos Procedurais e Paredes de Divisão das Casas
             floorData.decorations.forEach(dec => {
                 let dx = h.x + dec.x;
                 if(dec.type === 'wall') {
                     ctx.fillStyle = isHospital ? (floorData.isDestroyed ? "#a0a0a0" : "#eeeeee") : (floorData.isDestroyed ? "#15100c" : "#221c16");
                     ctx.fillRect(dx, houseGroundY - 240, dec.w, 240);
                     ctx.fillStyle = "#111"; ctx.fillRect(dx-2, houseGroundY - 240, 4, 240); ctx.fillRect(dx+dec.w-2, houseGroundY - 240, 4, 240);
-                    ctx.fillStyle = "#050403"; ctx.fillRect(dx - 10, houseGroundY - 160, dec.w + 20, 160); // Porta aberta/passagem
+                    ctx.fillStyle = "#050403"; ctx.fillRect(dx - 10, houseGroundY - 160, dec.w + 20, 160); 
                     if(dec.aptName) { ctx.fillStyle = isHospital ? "#111" : "#fff"; ctx.font = "bold 9px Courier"; ctx.fillText(dec.aptName, dx - 10, houseGroundY - 170); }
                 } else if(dec.type === 'text' && dec.aptName) {
-                    ctx.fillStyle = isHospital ? "#aaa" : "#fff"; ctx.font = "bold 9px Courier"; ctx.fillText(dec.aptName, dx, houseGroundY - 170);
+                    ctx.fillStyle = (isHospital || isSafezone) ? "#aaa" : "#fff"; ctx.font = "bold 9px Courier"; ctx.fillText(dec.aptName, dx, houseGroundY - 170);
+                } else if (dec.type === 'npc') {
+                    ctx.fillStyle = "#4a5a6a"; ctx.fillRect(dx, houseGroundY - 55, dec.w, 55);
+                    ctx.fillStyle = "#d1a88a"; ctx.beginPath(); ctx.arc(dx + dec.w/2, houseGroundY - 65, 14, 0, Math.PI * 2); ctx.fill();
+                    ctx.fillStyle = "#fff"; ctx.font = "bold 9px Courier"; ctx.fillText(dec.name, dx - 10, houseGroundY - 85);
+                    ctx.fillStyle = "#ffaa00"; ctx.fillText("MERCADOR", dx - 5, houseGroundY - 75);
                 } else if(dec.type === 'cama') {
                     ctx.fillStyle = floorData.isDestroyed ? "#2a1e16" : "#3e271a"; ctx.fillRect(dx, houseGroundY - 35, dec.w, 15);
                     ctx.fillStyle = floorData.isDestroyed ? "#3a2a2a" : "#553333"; ctx.fillRect(dx, houseGroundY - 45, dec.w - 10, 10);
@@ -3848,28 +4386,98 @@
         }
         ctx.lineTo(canvas.width, baseHorizonY); ctx.fill();
 
-        // Chão Base Físico do Bioma (Transição imersiva com cor e textura)
-        let groundGradient = ctx.createLinearGradient(0, baseHorizonY, 0, canvas.height);
-        let baseGnd = ambientLight < 0.5 ? "#020203" : currentBiomeObj.ground; // Chão negro à noite
-        groundGradient.addColorStop(0, baseGnd);
-        groundGradient.addColorStop(0.15, currentBiomeObj.accent);
-        groundGradient.addColorStop(1, "#020202");
-        ctx.fillStyle = groundGradient; 
-        ctx.fillRect(-camera.x, baseHorizonY, WORLD_WIDTH, canvas.height);
-        
-        // Linha de sujeira/detalhe de profundidade na borda do chão jogável
-        ctx.fillStyle = "rgba(0,0,0,0.6)";
-        ctx.fillRect(-camera.x, baseHorizonY, WORLD_WIDTH, 15);
+        // Base profunda do mundo para cobrir frestas
+        ctx.fillStyle = ambientLight < 0.5 ? "#010101" : "#0a0a0a";
+        ctx.fillRect(0, baseHorizonY + 20, canvas.width, canvas.height);
 
-        // Textura do Chão Corrigida (Perfeitamente cravada e estática no mundo)
-        ctx.fillStyle = currentBiomeObj.particleColor;
-        let startXTx = Math.floor(camera.x / 40) * 40;
-        for(let worldTx = startXTx; worldTx <= camera.x + canvas.width + 40; worldTx += 40) {
-            let screenTx = worldTx - camera.x;
-            let noise = Math.sin(worldTx * 0.05) * Math.cos(worldTx * 0.02);
-            if(noise > 0) {
-                let hMod = noise * 12;
-                ctx.fillRect(screenTx, baseHorizonY + 5 + (noise * 20), 4 + noise * 6, 2 + hMod);
+        let blockSize = 40;
+        let startWorldX = Math.floor(camera.x / blockSize) * blockSize;
+        let timeOsc = Date.now() * 0.002;
+        
+        // Dinâmica da Maré do Oceano (Vai e vem das ondas na praia)
+        let tideOffset = Math.sin(timeOsc * 0.4) * 200; 
+        let waveCrashX = 23900 + tideOffset; // Onde a água bate na areia
+        
+        for(let wx = startWorldX; wx <= camera.x + canvas.width + blockSize; wx += blockSize) {
+            let sx = wx - camera.x;
+            
+            // Pega o bioma EXATO deste bloco (Isso faz o blending "block-by-block" na fronteira!)
+            // Para dar um efeito de mistura de blocos se cruzando caótico, adicionamos um ruído forte na leitura da posição
+            let noiseOffset = (Math.sin(wx * 1.5) * Math.cos(wx * 0.8)) * 1200; 
+            let blockBiome = getBiomeAt(wx + noiseOffset);
+            
+            let gndColor = ambientLight < 0.5 ? "#020203" : blockBiome.ground;
+            let accColor = ambientLight < 0.5 ? "#0a0a0c" : blockBiome.accent;
+            let pColor = blockBiome.particleColor;
+            
+            // Sistema de Praia / Oceano
+            if (wx >= 23500) {
+                gndColor = "#c2b280"; // Areia da praia
+                accColor = "#a39361";
+                if (ambientLight < 0.5) { gndColor = "#4a4431"; accColor = "#332d1e"; }
+                
+                // Areia molhada pelas ondas recentes escurece e vai secando
+                if (wx < waveCrashX + 200 && wx > waveCrashX - 350) {
+                    let wetness = Math.max(0, 1 - Math.abs(wx - (waveCrashX - 100)) / 250);
+                    let wetSandColor = ambientLight < 0.5 ? "#2a2411" : "#8b7e55";
+                    gndColor = lerpColor(gndColor, wetSandColor, wetness);
+                    accColor = lerpColor(accColor, wetSandColor, wetness);
+                }
+            }
+            
+            // Desenha o bloco principal (Chão base com gradiente para a escuridão)
+            let blockGrad = ctx.createLinearGradient(0, baseHorizonY, 0, baseHorizonY + 150);
+            blockGrad.addColorStop(0, gndColor);
+            blockGrad.addColorStop(1, "#020202");
+            ctx.fillStyle = blockGrad;
+            ctx.fillRect(sx, baseHorizonY, blockSize + 1.5, canvas.height); // +1.5 para evitar linhas vazias
+            
+            // Detalhe de borda (grama, terra, areia)
+            ctx.fillStyle = accColor;
+            ctx.fillRect(sx, baseHorizonY, blockSize + 1.5, 15);
+            
+            // Caos Visual: Detalhes específicos de cada bioma misturados
+            let noise = Math.sin(wx * 0.05) * Math.cos(wx * 0.02);
+            ctx.fillStyle = pColor;
+            
+            if (wx >= waveCrashX) {
+                // ÁGUA DO OCEANO (Blocos de água se movendo com física de ondas)
+                let waveH = Math.sin(timeOsc + wx * 0.02) * 12 + Math.cos(timeOsc * 1.5 + wx * 0.05) * 6;
+                let waterBase = ambientLight < 0.5 ? "rgba(10, 20, 30, 0.95)" : "rgba(30, 90, 150, 0.95)";
+                let waterCrest = ambientLight < 0.5 ? "rgba(30, 40, 60, 0.9)" : "rgba(80, 150, 220, 0.9)";
+                let foamColor = ambientLight < 0.5 ? "rgba(150, 150, 150, 0.7)" : "rgba(255, 255, 255, 0.8)";
+                
+                // Corpo profundo da água
+                ctx.fillStyle = waterBase;
+                ctx.fillRect(sx, baseHorizonY + 5 - waveH, blockSize + 1.5, canvas.height);
+                
+                // Crista superior da onda
+                ctx.fillStyle = waterCrest;
+                ctx.fillRect(sx, baseHorizonY + 5 - waveH, blockSize + 1.5, 12);
+                
+                // Espuma na ponta da onda batendo na areia
+                if (wx < waveCrashX + blockSize * 3) {
+                    ctx.fillStyle = foamColor;
+                    ctx.fillRect(sx, baseHorizonY + 5 - waveH, blockSize + 1.5, 6);
+                }
+            } 
+            else if (blockBiome.name === "Floresta Morta" || blockBiome.name === "Pântano Tóxico") {
+                // Raízes e mato descendo do solo
+                if(noise > 0) {
+                    ctx.fillRect(sx, baseHorizonY + 15, 6, 10 + noise * 30);
+                    ctx.fillRect(sx + 20, baseHorizonY + 15, 4, 5 + noise * 15);
+                }
+            } 
+            else if (blockBiome.name === "Cidade Arruinada") {
+                // Blocos de concreto quadrado e quebrado
+                if(noise > 0) ctx.fillRect(sx + 5, baseHorizonY + 5 + (noise * 10), 20 + noise * 15, 12);
+                if(Math.sin(wx * 0.1) > 0.5) ctx.fillRect(sx + 15, baseHorizonY + 25, 15, 8);
+            }
+            else if (blockBiome.name === "Deserto de Cinzas") {
+                // Dunas cortadas com pedrinhas e poeira
+                if(noise > -0.5) {
+                    ctx.beginPath(); ctx.arc(sx + 20, baseHorizonY + 20 + noise*25, 3 + noise*6, 0, Math.PI*2); ctx.fill();
+                }
             }
         }
         
@@ -3914,7 +4522,19 @@
             ctx.restore();
         });
 
-             // --- DESENHAR PRÉDIOS E COMPLEXOS PROCEDIMENTAIS NA SUPERFÍCIE ---
+             // --- DESENHAR POÇOS ---
+        wells.forEach((well) => {
+            ctx.save(); ctx.translate(well.x - camera.x, well.y - camera.y);
+            ctx.fillStyle = "#8a6d5c"; ctx.fillRect(0, 10, 40, 20); // Base Tijolos
+            ctx.fillStyle = "#555"; ctx.fillRect(-5, 5, 50, 5); // Borda
+            ctx.fillStyle = "#333"; ctx.fillRect(5, -30, 4, 35); ctx.fillRect(31, -30, 4, 35); // Hastes
+            ctx.fillStyle = "#4a2a11"; ctx.beginPath(); ctx.moveTo(-10, -30); ctx.lineTo(20, -50); ctx.lineTo(50, -30); ctx.fill(); // Telhado
+            ctx.fillStyle = "#000"; ctx.fillRect(10, 10, 20, 10); // Buraco Escuro
+            ctx.fillStyle = "#0088ff"; ctx.fillRect(10, 15, 20, 5); // Reflexo da Água
+            ctx.restore();
+        });
+
+        // --- DESENHAR PRÉDIOS E COMPLEXOS PROCEDIMENTAIS NA SUPERFÍCIE ---
         houses.forEach(h => {
             ctx.fillStyle = h.color;
             ctx.fillRect(h.x - camera.x, GROUND_Y - camera.y - h.h, h.w, h.h);
@@ -3954,8 +4574,14 @@
         let playerMidX = player.x + player.width/2;
         // As portas das bases agora estão na esquerda (h.x + 65 é o centro da porta)
         let nearAnyDoor = houses.some(h => Math.abs(playerMidX - (h.x + 65)) < 50) || tents.some(t => Math.abs(playerMidX - (t.x + 50)) < 60);
+        let nearWell = wells.some(w => Math.abs(playerMidX - (w.x + 20)) < 60);
+        
         let btnInteract = document.getElementById("btn-interact");
-        btnInteract.innerText = "ENTRAR"; btnInteract.style.display = nearAnyDoor ? "flex" : "none";
+        if (nearWell) {
+            btnInteract.innerText = "POÇO"; btnInteract.style.display = "flex";
+        } else {
+            btnInteract.innerText = "ENTRAR"; btnInteract.style.display = nearAnyDoor ? "flex" : "none";
+        }
 
 
         // Barracas Construídas
@@ -4081,23 +4707,73 @@
             }
         });
 
+        // Atualização Nuvens Tóxicas
+        if (typeof toxicClouds !== 'undefined') {
+            for(let i = toxicClouds.length - 1; i >= 0; i--) {
+                let tc = toxicClouds[i];
+                tc.life--;
+                ctx.fillStyle = `rgba(100, 255, 100, ${Math.min(0.5, tc.life / 200)})`;
+                ctx.beginPath(); ctx.ellipse(tc.x - camera.x + tc.w/2, tc.y - camera.y + tc.h/2, tc.w/2 + Math.sin(Date.now()*0.005)*10, tc.h/2, 0, 0, Math.PI*2); ctx.fill();
+                
+                if (!currentInterior && player.x < tc.x + tc.w && player.x + player.width > tc.x && player.y < tc.y + tc.h && player.y + player.height > tc.y) {
+                    if (player.tick % 30 === 0) { player.hp -= 2; updateHealthBar(); screenShake=2; }
+                }
+                if (tc.life <= 0) toxicClouds.splice(i, 1);
+            }
+        }
+
+        // Atualização Saqueadores (Looters)
+        if (typeof looters !== 'undefined') {
+            for(let i = looters.length - 1; i >= 0; i--) {
+                if (looters[i].currentInterior === (currentInterior ? true : false) || (!currentInterior && !looters[i].currentInterior)) {
+                    looters[i].update();
+                    if (looters[i].hp > 0) looters[i].draw(ctx);
+                    else {
+                        let wpn = looters[i].weapon;
+                        let magType = ITEM_DB[wpn] ? (ITEM_DB[wpn].reqMag || 'internal') : 'internal';
+                        let bagObj = { x: looters[i].x, y: looters[i].y + 20, type: 'loot_bag', count: 1, storedItems: [{type: wpn, count: 1, loadedMag: magType, magAmmo: 15}], vx: 0, vy: -5 };
+                        drops.push(bagObj);
+                        looters.splice(i, 1);
+                    }
+                }
+            }
+            
+            let isNightSpawn = timeFloat >= 18.5 || timeFloat < 5.5;
+            if (isNightSpawn && Math.random() < 0.0002 && looters.length < 2) {
+                let side = Math.random() > 0.5 ? 1 : -1;
+                looters.push(new Looter(player.x + (1500 * side), GROUND_Y - 55));
+            }
+        }
+
         // Atualização de Atores Inimigos (Zumbis locais randômicos)
         for(let i = zombies.length - 1; i >= 0; i--) {
             zombies[i].update(); // Força atualização local offline e online
             if(zombies[i].hp > 0) zombies[i].draw(ctx);
             else { 
+                if (zombies[i].type === 'toxic') {
+                    if (typeof toxicClouds !== 'undefined') {
+                        toxicClouds.push({ x: zombies[i].x - 35, y: zombies[i].y - 20, w: 100, h: 80, life: 600 });
+                    }
+                }
                 if(Math.random() > 0.4) {
-                    // Agora também podem dropar comida
+                    // Agora também podem dropar comida (escassez no Inverno)
                     let lootTypes = ['ammo_pistol', 'ammo_shotgun', 'ammo_machinegun', 'canned_beans', 'raw_potato', 'water_bottle', 'gunpowder'];
+                    if (currentSeasonIdx === 3 && Math.random() > 0.3) {
+                        // No inverno, 70% de chance de remover a comida do drop do zumbi da natureza
+                        lootTypes = ['ammo_pistol', 'ammo_shotgun', 'ammo_machinegun', 'gunpowder', 'scrap_metal', 'dirty_rags'];
+                    }
                     drops.push({ x: zombies[i].x + 15, y: GROUND_Y - 10, type: lootTypes[Math.floor(Math.random() * lootTypes.length)] });
                 }
                 zombies.splice(i, 1); 
             }
         }
 
-        // Sistema Dinâmico de Spawns baseados no Clima (Raro, focado no terror da escassez)
-        let maxZombies = isMultiplayer ? 12 : 8;
-        if (zombies.length < maxZombies && Math.random() < 0.0015) { 
+        // Sistema Dinâmico de Spawns baseados no Clima e Ciclo Dia/Noite
+        let isNightSpawn = timeFloat >= 18.5 || timeFloat < 5.5;
+        let maxZombies = isMultiplayer ? (isNightSpawn ? 18 : 6) : (isNightSpawn ? 14 : 3);
+        let spawnChance = isNightSpawn ? 0.004 : 0.0006; // Muito mais zumbis, frequentes e perigosos à noite
+
+        if (zombies.length < maxZombies && Math.random() < spawnChance) { 
             let side = Math.random() > 0.5 ? 1 : -1;
             let z = new Zombie(player.x + (1200 * side), GROUND_Y - 55);
             
