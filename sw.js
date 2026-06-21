@@ -54,9 +54,23 @@ messaging.onBackgroundMessage((payload) => {
   const notificationOptions = {
     body: payload.notification.body,
     icon: "https://cdn-icons-png.flaticon.com/512/3114/3114860.png",
-    vibrate: [200, 100, 200, 100, 200], // Vibração dupla pesada
-    tag: "chat-msg"
+    vibrate: [200, 100, 200, 100, 200],
+    tag: "chat-msg",
+    renotify: true // <-- ISSO OBRIGA O CELULAR A APITAR E VIBRAR NOVAMENTE
   };
   
   self.registration.showNotification(notificationTitle, notificationOptions);
+});
+
+// Permite que o app abra ao clicar na notificação quando minimizado
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function(clientList) {
+      if (clientList.length > 0) {
+        return clientList[0].focus();
+      }
+      return clients.openWindow('/');
+    })
+  );
 });

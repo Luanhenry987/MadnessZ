@@ -1974,6 +1974,8 @@
                                                 body: body,
                                                 icon: "https://cdn-icons-png.flaticon.com/512/3114/3114860.png",
                                                 vibrate: [200, 100, 200],
+                                                tag: "chat-msg-local", // <-- Agrupa as mensagens evitando flood
+                                                renotify: true, // <-- Força a notificação a tocar som de novo
                                                 data: { url: "https://luanhenry987.github.io/chat_mania/" }
                                             });
                                         });
@@ -2791,5 +2793,5 @@
     if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js');}
     </script>
     
-</body>
+</body> sim isso e uma att
 </html>
