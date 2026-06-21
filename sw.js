@@ -1,14 +1,37 @@
 importScripts("https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/10.8.1/firebase-messaging-compat.js");
 
+// DICA: Toda vez que você fizer uma atualização gigante no site, mude este número (ex: app-cache-v3)
+const CACHE_NAME = 'app-cache-v2';
+
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open('app-cache').then(c => {
+  self.skipWaiting(); // Força o novo Service Worker a pular a fila e instalar imediatamente
+  e.waitUntil(caches.open(CACHE_NAME).then(c => {
     return c.addAll(['./', './index.html']);
   }));
 });
 
+self.addEventListener('activate', e => {
+  // Limpa o cache antigo e assume o controle na mesma hora
+  e.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cache => {
+          if (cache !== CACHE_NAME) {
+            return caches.delete(cache);
+          }
+        })
+      );
+    }).then(() => self.clients.claim()) 
+  );
+});
+
 self.addEventListener('fetch', e => {
-  e.respondWith(caches.match(e.request).then(r => { return r || fetch(e.request); }));
+  // Estratégia "Network First": Tenta buscar o arquivo fresquinho na internet primeiro. 
+  // Se o usuário estiver offline ou a internet falhar, ele pega do cache.
+  e.respondWith(
+    fetch(e.request).catch(() => caches.match(e.request))
+  );
 });
 
 // Configuração idêntica à do index.html para o Service Worker conectar
