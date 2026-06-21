@@ -1974,11 +1974,11 @@
                                                 body: body,
                                                 icon: "https://cdn-icons-png.flaticon.com/512/3114/3114860.png",
                                                 vibrate: [200, 100, 200],
-                                                tag: "chat-msg", // Agrupa as notificações pra não floodar a tela
                                                 data: { url: "https://luanhenry987.github.io/chat_mania/" }
                                             });
                                         });
-                                    } else {
+                                    }
+ else {
                                         // No PC funciona normal o jeito antigo
                                         try {
                                             const notif = new Notification(title, { 
@@ -2784,6 +2784,11 @@
     </script>
     <script>
         if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js');}
+    </script>
+    
+</body>
+</html>
+    if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js');}
     </script>
     
 </body>
