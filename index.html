@@ -1938,13 +1938,11 @@
                         if (document.visibilityState === 'visible') clearNotifs();
                     });
 
-                    // Relógio de Fundo: Acorda a cada 30 segundos
-                    setInterval(() => {
-                        // Só dispara se a aba estiver em segundo plano e houver algo na fila
+                    // Função global para processar a fila (substitui o setInterval que o Android mata)
+                    window.processarFilaNotificacoes = () => {
                         if (!document.hasFocus() && window.pendingNotifications.length > 0) {
                             const count = window.pendingNotifications.length;
                             
-                            // Agrupa os títulos e pega a última mensagem enviada
                             const titulosUnicos = [...new Set(window.pendingNotifications.map(n => n.title))].join(" e ");
                             const ultimaMsg = window.pendingNotifications[window.pendingNotifications.length - 1].body;
                             
@@ -1956,15 +1954,18 @@
                             }
 
                             if ('serviceWorker' in navigator && /Android|iPhone|iPad/i.test(navigator.userAgent)) {
-                                navigator.serviceWorker.ready.then(function(registration) {
-                                    registration.showNotification(groupTitle, {
-                                        body: groupBody,
-                                        icon: "https://cdn-icons-png.flaticon.com/512/3114/3114860.png",
-                                        vibrate: [200, 100, 200],
-                                        tag: "chat-msg-local", // O uso da mesma tag força o OS a atualizar o banner em vez de floodar
-                                        renotify: true, // Força a apitar e vibrar a cada 30s se não lido
-                                        data: { url: "https://luanhenry987.github.io/chat_mania/" }
-                                    });
+                                // Correção fundamental para Android: getRegistration acorda o Service Worker adormecido
+                                navigator.serviceWorker.getRegistration().then(function(registration) {
+                                    if (registration) {
+                                        registration.showNotification(groupTitle, {
+                                            body: groupBody,
+                                            icon: "https://cdn-icons-png.flaticon.com/512/3114/3114860.png",
+                                            vibrate: [200, 100, 200],
+                                            tag: "chat-msg-local",
+                                            renotify: true,
+                                            data: { url: "https://luanhenry987.github.io/chat_mania/" }
+                                        });
+                                    }
                                 });
                             } else {
                                 try {
@@ -1983,10 +1984,11 @@
                                 }
                             }
                             
-                            // Esvazia a fila após o pacote ser enviado ao OS
                             window.pendingNotifications = [];
                         }
-                    }, 30000); // 30 segundos redondos
+                        // Libera o timer para a próxima rodada de mensagens
+                        window.notificationTimer = null; 
+                    };
                 }
 
                 // Verifica se não é o carregamento inicial e se temos permissão
@@ -2012,10 +2014,16 @@
                                     title = `🔔 ${newMsg.username} marcou você`;
                                 }
                                 
-                                // Se caiu em alguma das regras, vai pra gaveta de 30s
+                                // Se caiu em alguma das regras, vai pra gaveta
                                 if (title) {
                                     window.unreadMessageCount++;
                                     window.pendingNotifications.push({ title, body });
+                                    
+                                    // Inicia o cronômetro de 30s APENAS quando chega a primeira mensagem.
+                                    // Como é engatilhado por um evento real (o snapshot), o Android permite rodar.
+                                    if (!window.notificationTimer) {
+                                        window.notificationTimer = setTimeout(window.processarFilaNotificacoes, 30000);
+                                    }
                                 }
                             }
                         }
