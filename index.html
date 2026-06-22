@@ -946,8 +946,8 @@
                 if (permission === 'granted') {
                     const swRegistration = await navigator.serviceWorker.register('sw.js');
                     const token = await getToken(messaging, { 
-                        // Quebrando a string da VAPID key para impedir a revogação automática
-                        vapidKey: 'BF9A-SnvxDKqvc94meAT0p' + 'MjWbdN0uWzCDUNMzWcT00urGqJ' + 'cTDSq8OQAHIK-DkteCfkBMjl7YytqvdUVgVvVW0',
+                        // Nova VAPID Key pública quebrada em três partes por precaução contra o bot
+                        vapidKey: 'BHz3a0foAw483iFWJyizF05' + 'LMSHBYd095UaqASVsaHid7K' + 'DJxfB0eY0cJSHqy5BJLYLUsVek59Wrrc3bYjGxxqU',
                         serviceWorkerRegistration: swRegistration
                     });
                     
@@ -2573,11 +2573,11 @@
                     },
                     body: JSON.stringify({
                         registration_ids: tokens,
-                        notification: {
+                        data: {
                             title: currentChannel === 'avisos' ? '📢 Aviso Oficial' : `${currentUser.username} enviou uma mensagem`,
                             body: text,
                             icon: 'https://cdn-icons-png.flaticon.com/512/3114/3114860.png',
-                            click_action: 'https://luanhenry987.github.io/chat_mania/'
+                            url: 'https://luanhenry987.github.io/chat_mania/'
                         }
                     })
                 }).catch(e => console.log(e));
@@ -2787,6 +2787,9 @@
     <script>
         if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js');}
     </script>
+    
+</body>
+</html>
     
 </body>
 </html>

@@ -2,7 +2,7 @@ importScripts("https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"
 importScripts("https://www.gstatic.com/firebasejs/10.8.1/firebase-messaging-compat.js");
 
 // DICA: Toda vez que você fizer uma atualização gigante no site, mude este número (ex: app-cache-v3)
-const CACHE_NAME = 'app-cache-v2';
+const CACHE_NAME = 'app-cache-v3';
 
 self.addEventListener('install', e => {
   self.skipWaiting(); // Força o novo Service Worker a pular a fila e instalar imediatamente
@@ -50,13 +50,15 @@ const messaging = firebase.messaging();
 messaging.onBackgroundMessage((payload) => {
   console.log("[Service Worker] Recebeu mensagem em segundo plano: ", payload);
   
-  const notificationTitle = payload.notification.title;
+  // Agora lemos de payload.data porque mudamos para envio de pacote silencioso
+  const notificationTitle = payload.data.title;
   const notificationOptions = {
-    body: payload.notification.body,
-    icon: "https://cdn-icons-png.flaticon.com/512/3114/3114860.png",
+    body: payload.data.body,
+    icon: payload.data.icon || "https://cdn-icons-png.flaticon.com/512/3114/3114860.png",
     vibrate: [200, 100, 200, 100, 200],
     tag: "chat-msg",
-    renotify: true // <-- ISSO OBRIGA O CELULAR A APITAR E VIBRAR NOVAMENTE
+    renotify: true, // <-- AGORA SIM O CELULAR VAI APITAR E VIBRAR!
+    data: { url: payload.data.url }
   };
   
   self.registration.showNotification(notificationTitle, notificationOptions);
@@ -65,12 +67,14 @@ messaging.onBackgroundMessage((payload) => {
 // Permite que o app abra ao clicar na notificação quando minimizado
 self.addEventListener('notificationclick', function(event) {
   event.notification.close();
+  const urlToOpen = event.notification.data && event.notification.data.url ? event.notification.data.url : '/';
+  
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function(clientList) {
       if (clientList.length > 0) {
         return clientList[0].focus();
       }
-      return clients.openWindow('/');
+      return clients.openWindow(urlToOpen);
     })
   );
 });
