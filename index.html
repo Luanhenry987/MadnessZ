@@ -1909,15 +1909,13 @@
                 // Gerenciador global para fechar as notificações e zerar o badge
                 if (!window.activeNotifications) {
                     window.activeNotifications = [];
-                    window.unreadMessageCount = 0; // Cria o contador global
-                    window.pendingNotifications = []; // Fila de espera de 30s
+                    window.unreadMessageCount = 0; 
                     
                     const clearNotifs = () => {
                         window.activeNotifications.forEach(n => n.close());
                         window.activeNotifications = [];
-                        window.pendingNotifications = []; // Se abrir o app, esvazia a fila pra não apitar
                         
-                        // NOVA ADIÇÃO: Limpa os banners de notificação nativos do Android
+                        // Limpa os banners de notificação nativos do Android
                         if ('serviceWorker' in navigator) {
                             navigator.serviceWorker.ready.then(reg => {
                                 reg.getNotifications().then(notifications => {
@@ -1937,58 +1935,6 @@
                     document.addEventListener('visibilitychange', () => {
                         if (document.visibilityState === 'visible') clearNotifs();
                     });
-
-                    // Função global para processar a fila (substitui o setInterval que o Android mata)
-                    window.processarFilaNotificacoes = () => {
-                        if (!document.hasFocus() && window.pendingNotifications.length > 0) {
-                            const count = window.pendingNotifications.length;
-                            
-                            const titulosUnicos = [...new Set(window.pendingNotifications.map(n => n.title))].join(" e ");
-                            const ultimaMsg = window.pendingNotifications[window.pendingNotifications.length - 1].body;
-                            
-                            const groupTitle = count === 1 ? titulosUnicos : `🔔 ${window.unreadMessageCount} Novas Mensagens!`;
-                            const groupBody = count === 1 ? ultimaMsg : `Última: ${ultimaMsg}`;
-
-                            if ('setAppBadge' in navigator) {
-                                navigator.setAppBadge(window.unreadMessageCount).catch(e => console.log(e));
-                            }
-
-                            if ('serviceWorker' in navigator && /Android|iPhone|iPad/i.test(navigator.userAgent)) {
-                                // Correção fundamental para Android: getRegistration acorda o Service Worker adormecido
-                                navigator.serviceWorker.getRegistration().then(function(registration) {
-                                    if (registration) {
-                                        registration.showNotification(groupTitle, {
-                                            body: groupBody,
-                                            icon: "https://cdn-icons-png.flaticon.com/512/3114/3114860.png",
-                                            vibrate: [200, 100, 200],
-                                            tag: "chat-msg-local",
-                                            renotify: true,
-                                            data: { url: "https://luanhenry987.github.io/chat_mania/" }
-                                        });
-                                    }
-                                });
-                            } else {
-                                try {
-                                    const notif = new Notification(groupTitle, { 
-                                        body: groupBody, 
-                                        icon: "https://cdn-icons-png.flaticon.com/512/3114/3114860.png",
-                                        tag: "chat-msg-local"
-                                    });
-                                    window.activeNotifications.push(notif);
-                                    notif.onclick = function() {
-                                        window.open("https://luanhenry987.github.io/chat_mania/", "_self");
-                                        notif.close();
-                                    };
-                                } catch (err) {
-                                    console.error("Erro na notificação:", err);
-                                }
-                            }
-                            
-                            window.pendingNotifications = [];
-                        }
-                        // Libera o timer para a próxima rodada de mensagens
-                        window.notificationTimer = null; 
-                    };
                 }
 
                 // Verifica se não é o carregamento inicial e se temos permissão
@@ -1998,12 +1944,11 @@
                             const newMsg = change.doc.data();
                             const msgChannel = newMsg.channel || 'geral';
                             
-                            // A MÁGICA ACONTECE AQUI: Adiciona à fila em vez de enviar na hora!
+                            // A MÁGICA PARA O ANDROID: Disparar IMEDIATAMENTE (sem timer) e usar TAG para agrupar nativamente
                             if (newMsg.username !== currentUser.username && !document.hasFocus()) {
                                 let title = '';
                                 let body = newMsg.text || 'Anexo recebido';
 
-                                // Lógica de separação das Notificações
                                 if (msgChannel === 'avisos') {
                                     title = `📢 Aviso de ${newMsg.username}`;
                                 } else if (newMsg.isAdminUser && newMsg.text && newMsg.text.includes('@todos')) {
@@ -2014,15 +1959,45 @@
                                     title = `🔔 ${newMsg.username} marcou você`;
                                 }
                                 
-                                // Se caiu em alguma das regras, vai pra gaveta
                                 if (title) {
                                     window.unreadMessageCount++;
-                                    window.pendingNotifications.push({ title, body });
                                     
-                                    // Inicia o cronômetro de 30s APENAS quando chega a primeira mensagem.
-                                    // Como é engatilhado por um evento real (o snapshot), o Android permite rodar.
-                                    if (!window.notificationTimer) {
-                                        window.notificationTimer = setTimeout(window.processarFilaNotificacoes, 30000);
+                                    // Se tem mais de 1, agrupa no próprio título e mostra só a última mensagem
+                                    const groupTitle = window.unreadMessageCount === 1 ? title : `🔔 ${window.unreadMessageCount} Novas Mensagens!`;
+                                    const groupBody = window.unreadMessageCount === 1 ? body : `Última de ${newMsg.username}: ${body.substring(0, 40)}`;
+
+                                    if ('setAppBadge' in navigator) {
+                                        navigator.setAppBadge(window.unreadMessageCount).catch(e => console.log(e));
+                                    }
+
+                                    if ('serviceWorker' in navigator && /Android|iPhone|iPad/i.test(navigator.userAgent)) {
+                                        navigator.serviceWorker.getRegistration().then(function(reg) {
+                                            if (reg) {
+                                                reg.showNotification(groupTitle, {
+                                                    body: groupBody,
+                                                    icon: "https://cdn-icons-png.flaticon.com/512/3114/3114860.png",
+                                                    vibrate: [200, 100, 200],
+                                                    tag: "chat-msg-local", // O SEGREDO! O Android atualiza a notificação atual em vez de criar 10 novas
+                                                    renotify: true, // Força a vibrar de novo mesmo agrupando
+                                                    data: { url: "https://luanhenry987.github.io/chat_mania/" }
+                                                });
+                                            }
+                                        });
+                                    } else {
+                                        try {
+                                            const notif = new Notification(groupTitle, { 
+                                                body: groupBody, 
+                                                icon: "https://cdn-icons-png.flaticon.com/512/3114/3114860.png",
+                                                tag: "chat-msg-local"
+                                            });
+                                            window.activeNotifications.push(notif);
+                                            notif.onclick = function() {
+                                                window.open("https://luanhenry987.github.io/chat_mania/", "_self");
+                                                notif.close();
+                                            };
+                                        } catch (err) {
+                                            console.error("Erro na notificação:", err);
+                                        }
                                     }
                                 }
                             }
@@ -2815,4 +2790,3 @@
     
 </body>
 </html>
-   
